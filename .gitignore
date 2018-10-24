@@ -1,0 +1,10 @@
+# For mac
+.DS_STORE
+
+# To keep size down. Just run npm install
+node_modules
+
+# Vim
+*.swp
+*.swo
+*.swn

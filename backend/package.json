@@ -1,0 +1,23 @@
+{
+  "name": "it2810-p4-backend",
+  "version": "1.0.0",
+  "description": "A server backend for it2810 project 4",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "graphql",
+    "express",
+    "node",
+    "it2810"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-graphql": "^0.6.12",
+    "graphql": "^14.0.2",
+    "sqlite3": "^4.0.3"
+  }
+}

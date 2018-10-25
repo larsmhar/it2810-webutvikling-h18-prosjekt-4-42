@@ -17,6 +17,46 @@
     "eject": "react-scripts eject",
     "fix": "eslint --fix src/**/*.js"
   },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "env": {
+        "node":true,
+        "es6":true
+    },
+    "extends":[
+      "react-app",
+      "eslint:recommended"
+  ],
+    "rules":{
+        "indent":["error",4],
+        "no-console":0,
+        "no-var":0,
+        "curly":"error",
+        "no-multi-spaces":"error",
+        "array-bracket-spacing":"error",
+        "brace-style":"error",
+        "camelcase":"error",
+        "comma-spacing": ["error", {"before":false, "after": true}],
+        "comma-style": ["error", "last"],
+        "func-call-spacing": ["error", "never"],
+        "keyword-spacing":"error",
+        "no-multiple-empty-lines": "error",
+        "no-trailing-spaces": "error",
+        "quotes":["error","single"],
+        "semi-style": ["error", "last"],
+        "space-in-parens": ["error", "always"],
+        "prefer-const":"error",
+        "no-var":"error",
+        "quote-props":"error",
+        "space-before-blocks":"error",
+        "space-infix-ops":"error",
+        "newline-per-chained-call":"error",
+        "semi": ["error", "always"],
+        "no-unreachable": "error",
+  	  "no-unused-vars": "warn",
+        "no-mixed-spaces-and-tabs":"warn"
+    }
+},
   "browserslist": [
     ">0.2%",
     "not dead",

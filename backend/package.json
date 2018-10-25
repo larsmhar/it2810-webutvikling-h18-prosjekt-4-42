@@ -4,7 +4,10 @@
   "description": "A server backend for it2810 project 4",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "eslint --fix src/* && babel --presets @babel/env src -d build",
+    "start": "npm run build && node build/server.js",
+    "fix": "eslint --fix src/*"
   },
   "keywords": [
     "graphql",
@@ -15,9 +18,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bluebird": "^3.5.2",
+    "cors": "^2.8.4",
     "express": "^4.16.4",
     "express-graphql": "^0.6.12",
     "graphql": "^14.0.2",
     "sqlite3": "^4.0.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.7.0"
   }
 }

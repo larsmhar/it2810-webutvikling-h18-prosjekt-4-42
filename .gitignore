@@ -4,8 +4,10 @@
 # To keep size down. Just run npm install
 node_modules
 
+#don't commit build files
+build
+
 # Vim
 *.swp
 *.swo
 *.swn
-.eslintrc.json

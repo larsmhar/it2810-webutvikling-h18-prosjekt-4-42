@@ -30,6 +30,7 @@
       "space-infix-ops":"error",
       "newline-per-chained-call":"error",
       "semi": ["error", "always"],
-      "no-unreachable": "error"
+      "no-unreachable": "error",
+	  "no-unused-vars": "warn"
   }
 }

@@ -1,32 +1,50 @@
-.App {
-  text-align: center;
+body, html {
+    background: #102027;
+    margin: 0;
+    padding: 0;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+.App {
+  /* text-align: center; */
+  display:flex;
+  align-content: center;
+  flex-direction: column;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    height:5vh;
+    width:100vw;
+    background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+    margin:0;
+    font-family:Raleway, sans-serif;
+    font-weight:700;
+    display:flex;
+    justify-content:space-between;
+    padding-left:30px;
+    padding-right:30px;
+    align-items:center;
+    font-size:2em;
+    font-size: calc(10px + 2vmin);
+    color:white;
+
 }
 
-.App-link {
-  color: #61dafb;
+.App-container {
+    margin-top:1em;
+    display:grid;
+    grid-template-columns: repeat(6, max-content);
+    grid-gap: 1em 1em;
+    /* grid-template-rows: 1fr 1fr 1fr; */
+    grid-auto-flow: row dense;
+    margin:auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Item-container {
+    /* box-sizing: border-box; */
+    width:156px;
+    height:231px;
+}
+
+.Item-container > img {
+    width:156px;
+    height:231px;
 }

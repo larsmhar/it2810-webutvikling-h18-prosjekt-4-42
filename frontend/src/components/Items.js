@@ -15,14 +15,12 @@ class Items extends Component {
 		console.log(this.props.films)
 		console.log(this.props.films.data)
 		const films = this.props.films.data.films.map(film =>
-			<div>
-				<p>{film.Title}</p>
+			<div id={film.Id} class="Item-container">
+				{/*<p>{film.Title}</p>*/}
+                <img src={film.Poster} alt="poster"/>
 			</div>)
 		return (
-			<div>
-				<p>Items2</p>
-				{films}
-			</div>
+            [films]
 		)
 	}
 }

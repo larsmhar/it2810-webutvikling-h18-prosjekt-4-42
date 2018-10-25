@@ -13,12 +13,12 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-		  <Items/>
+        <div> Filmlr</div>
         </header>
+        {/* Had to set margin-top here, because setting in css didn't work?*/}
+        <div class="App-container" style={{marginTop:'1em'}}>
+            <Items/>
+        </div>
       </div>
     );
   }

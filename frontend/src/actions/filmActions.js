@@ -5,7 +5,7 @@ export const fetchFilms = () => dispatch => {
 	fetch("http://localhost:4000/graphql", {
 	  method: 'POST',
 	    headers: { 'Content-Type': 'application/json' },
-		  body: JSON.stringify({ query: '{ films { Title } }' }),
+		  body: JSON.stringify({ query: '{ films { Id Title  Poster } }' }),
 		  })
 	.then(res => res.json())
 	.then(films => dispatch({

@@ -45,8 +45,9 @@ const getFilms = function( args ) {
                 if ( result ) {
                     resolve( [result] );
                 } else {
-                    reject( Error( 'ID not found' ) );
+                    reject( new Error( 'Id not found' ) );
                 }
+
             } );
         } );
     } else if ( args.year ) {
@@ -54,9 +55,9 @@ const getFilms = function( args ) {
 
             db.all( 'SELECT * FROM movie WHERE Year = $year', args.year ).then( function( result ) {
                 if ( result ) {
-                    resolve( [result] );
+                    resolve( result );
                 } else {
-                    reject( Error( 'Year not found' ) );
+                    reject( new Error( 'Id not found' ) );
                 }
             } );
 
@@ -65,9 +66,9 @@ const getFilms = function( args ) {
     return new Promise( ( resolve, reject ) => {
         db.all( 'SELECT * FROM movie' ).then( function( result ) {
             if ( result ) {
-                resolve( [result] );
+                resolve( result );
             } else {
-                reject( Error( 'Movies not found?' ) );
+                reject( new Error( 'Id not found' ) );
             }
         } );
     } );

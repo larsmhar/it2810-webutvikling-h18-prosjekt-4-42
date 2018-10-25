@@ -15,10 +15,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "fix": "eslint --fix src/*.js"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "fix": "eslint --fix src/**/*.js"
   },
   "browserslist": [
     ">0.2%",

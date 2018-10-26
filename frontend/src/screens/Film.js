@@ -32,31 +32,8 @@ class Film extends Component {
 
         }
     }
-    render() {
-        console.log( this.props );
-        console.log( this.props.film );
-        console.log( this.props.film.data );
-        console.log( this.props.film.data.films );
-        const film = this.props.film.data.films.map( film =>
-            <div className="container">
-                <img className="header-img" src={film.Poster} alt='Blurry poster' />
-                <img className="poster" src={film.Poster} alt='Poster'/>
-                <div className="content">
-                    <span className="title">{film.Title}</span> <span className="year">{film.Year}</span><span className="director"><span className="directed">Directed by:</span> {film.Director}</span>
-                    <hr/>
-                    <div className="actors">{film.Actors}</div>
-                    <div className="plot">{film.Plot}</div>
-                </div>
-                <div className="rate">
-                    <i id="favorite" onClick={this.handleClick} style={{'color':this.state.favorite ? '#ff5722' : '#bebebe'}} className="material-icons md-48">{this.state.favorite ? 'favorite' : 'favorite_border'}</i>
-                    <i id="seen" onClick={this.handleClick} style={{'color':this.state.seen ? '#8bc34a' : '#bebebe'}} className="material-icons md-48">visibility</i>
-                </div>
-            </div> );
-        return (
-            [film]
-        );
-    }
-  }
+
+
   render() {
 	  console.log(this.props)
 	  console.log(this.props.film)

@@ -11,6 +11,14 @@ const initialState = {
 					{Title: "Cars"}
 				]
 			}
+		},
+		item: {
+			data: {
+				films: 
+				[
+					{Title: "Cars"}
+				]
+			}
 		}
 	}
 }

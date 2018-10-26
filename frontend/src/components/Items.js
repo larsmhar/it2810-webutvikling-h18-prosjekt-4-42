@@ -3,6 +3,7 @@ import { Component } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { fetchFilms } from '../actions/filmActions'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class Items extends Component {
 
@@ -15,18 +16,21 @@ class Items extends Component {
 		console.log(this.props.films)
 		console.log(this.props.films.data)
 		const films = this.props.films.data.films.map(film =>
-			<div id={film.Id} class="Item-container">
-				{/*<p>{film.Title}</p>*/}
-                <img src={film.Poster} alt="poster"/>
-			</div>)
+			<Link to={"/film/" + film.Id}>
+				<div id={film.Id} className="Item-container" >
+                	<img src={film.Poster} alt="poster"/>
+				</div>
+			</Link>)
 		return (
-            [films]
+ 			[
+				films
+			]
 		)
 	}
 }
 
 Items.propTypes = {
-	fetchPosts: PropTypes.func.isRequired,
+	fetchFilms: PropTypes.func.isRequired,
 	films: PropTypes.array.isRequired,
 }
 

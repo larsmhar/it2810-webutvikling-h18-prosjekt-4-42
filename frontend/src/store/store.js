@@ -9,7 +9,9 @@ const initialState = {
                 'films':
 				[
 				    {'Title': 'Cars'}
-				]
+				],
+                'userWatched':[],
+                'userLiked':[],
             }
         },
         'item': {

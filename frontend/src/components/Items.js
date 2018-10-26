@@ -11,17 +11,17 @@ class Items extends Component {
         this.props.fetchFilms();
     }
 
-    render() {
-        console.log( 'props:', this.props );
-        console.log( this.props.films );
-        console.log( this.props.films.data );
-        const films = this.props.films.data.films.map( film =>
-            <Link to={'/film/' + film.Id}>
-                <div id={film.Id} className="Item-container" >
-                	<img src={film.Poster} alt="poster"/>
-                </div>
-            </Link> );
-        return (
+	render() {
+		console.log("props:", this.props)
+		console.log(this.props.films)
+		console.log(this.props.films.data)
+		const films = this.props.films.data.films.map(film =>
+			<Link to={"/film/" + film.id}>
+				<div id={film.id} className="Item-container" >
+                	<img src={film.poster} alt="poster"/>
+				</div>
+			</Link>)
+		return (
  			[
                 films
             ]

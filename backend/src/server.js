@@ -23,19 +23,20 @@ const schema = buildSchema( `
     films(id:String, year:String): [Movie]
 },
 type Movie {
-    Id: String
-    Title: String
-    Released: String
-    Genre: String
-    Director: String
-    Plot: String
-    Writer: String
-    Runtime: String
-    Year: String
-    Awards: String
-    Poster: String
+    id: String
+    title: String
+    released: String
+    genre: String
+    director: String
+    plot: String
+    writer: String
+    runtime: String
+    year: String
+    awards: String
+    poster: String
     imdbRating: String
-    Production: String
+    production: String
+    actors: String
 }
 ` );
 

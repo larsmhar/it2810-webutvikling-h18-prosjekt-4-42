@@ -2,26 +2,29 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import Items from './components/Items';
+import Frontpage from './screens/Frontpage'
+import Film from './screens/Film'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+
 
 class App extends Component {
-    componentWillMount() {
-        console.log( 'test' );
-    }
-    render() {
-        console.log( 'App' );
-        return (
-            <div className="App">
-                <header className="App-header">
-                    <div> Filmlr</div>
-                </header>
-                {/* Had to set margin-top here, because setting in css didn't work?*/}
-                <div class="App-container" style={{'marginTop':'1em'}}>
-                    <Items/>
-                </div>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <Router>
+        <div>
+          <div className="App">
+            <header className="App-header">
+              <div> Filmlr</div>
+            </header>
+            {/* Had to set margin-top here, because setting in css didn't work?*/}
+          </div>
+          <Route exact path="/" component={Frontpage} />
+          <Route path="/film/:id" component={Film} /> 
+        </div>
+      </Router>
+    );
+  }
 }
 
 export default App;

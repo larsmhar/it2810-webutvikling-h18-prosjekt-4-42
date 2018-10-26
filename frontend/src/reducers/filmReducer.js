@@ -1,8 +1,8 @@
 import { FETCH_FILMS, FETCH_FILM } from '../actions/types'
 
 const initialState = {
-	items: [],
-}
+    'items': [],
+};
 
 export default function(state = initialState, action) {
 	console.log(action.type, action.payload)

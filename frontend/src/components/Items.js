@@ -1,5 +1,5 @@
-import React from 'react'
-import { Component } from 'react'
+import React from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { fetchFilms } from '../actions/filmActions'
@@ -7,9 +7,9 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class Items extends Component {
 
-	componentWillMount() {
-		this.props.fetchFilms()
-	}
+    componentWillMount() {
+        this.props.fetchFilms();
+    }
 
 	render() {
 		console.log("props:", this.props)
@@ -34,8 +34,8 @@ Items.propTypes = {
 	films: PropTypes.array.isRequired,
 }
 
-const mapStateToProps = state => ({
-	films: state.films.items
-})
+const mapStateToProps = state => ( {
+    'films': state.films.items
+} );
 
-export default connect(mapStateToProps, { fetchFilms })(Items)
+export default connect( mapStateToProps, { fetchFilms } )( Items );

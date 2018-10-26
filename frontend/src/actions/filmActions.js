@@ -1,4 +1,4 @@
-import { FETCH_FILMS, FETCH_FILM } from './types'
+import { FETCH_FILMS, FETCH_FILM } from './types';
 
 export const fetchFilms = () => dispatch => {
 	console.log("fetching all films")
@@ -30,6 +30,6 @@ export const fetchFilm = (id) => dispatch => {
 	}))
 }
 
-function makQuery() {
-	return undefined
+function makeQuery() {
+    return undefined;
 }

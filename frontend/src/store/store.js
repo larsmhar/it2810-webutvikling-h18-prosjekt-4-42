@@ -3,25 +3,25 @@ import thunk from 'redux-thunk';
 import rootReducer from '../reducers/index';
 
 const initialState = {
-	films: {
-		items: {
-			data: {
-				films: 
+    'films': {
+        'items': {
+            'data': {
+                'films':
 				[
-					{Title: "Cars"}
+				    {'Title': 'Cars'}
 				]
-			}
-		},
-		item: {
-			data: {
-				films: 
+            }
+        },
+        'item': {
+            'data': {
+                'films':
 				[
-					{Title: "Cars"}
+				    {'Title': 'Cars'}
 				]
-			}
-		}
-	}
-}
+            }
+        }
+    }
+};
 
 const middleware = [thunk];
 

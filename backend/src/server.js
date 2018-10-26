@@ -21,6 +21,9 @@ db.all = promisify( db.all );
 const schema = buildSchema( `
   type Query {
     films(id:String, year:String): [Movie]
+    user(username:String!): User
+    userWatched(uid:Int!): [Movie]
+    userLiked(uid:Int!): [Movie]
 },
 type Movie {
     id: String
@@ -37,6 +40,11 @@ type Movie {
     imdbRating: String
     production: String
     actors: String
+}
+
+type User {
+    uid: Int
+    username: String
 }
 ` );
 
@@ -77,9 +85,48 @@ const getFilms = function( args ) {
     } );
 };
 
+const getUser = function( args ) {
+    return new Promise( ( resolve, reject ) => {
+        db.get( 'SELECT * FROM user WHERE username = $username', args.username ).then( function( result ) {
+            if ( result ) {
+                resolve( result );
+            } else {
+                reject( new Error( 'Username not found' ) );
+            }
+        } );
+    } );
+}
+
+const getWatched = function( args ) {
+    return new Promise( ( resolve, reject ) => {
+        db.all( 'SELECT * FROM movie INNER JOIN watched on movie.id = watched.mid WHERE watched.uid = $uid', args.uid ).then( function( result ) {
+            if ( result ) {
+                resolve( result );
+            } else {
+                reject( new Error( 'No watched movies!' ) );
+            }
+        } );
+    } );
+}
+
+const getLiked = function( args ) {
+    return new Promise( ( resolve, reject ) => {
+        db.all( 'SELECT * FROM movie INNER JOIN liked on movie.id = liked.mid WHERE liked.uid = $uid', args.uid ).then( function( result ) {
+            if ( result ) {
+                resolve( result );
+            } else {
+                reject( new Error( 'No liked movies!' ) );
+            }
+        } );
+    } );
+}
+
 // The root provides a resolver function for each API endpoint
 const root = {
-    'films': getFilms
+    'films': getFilms,
+    'user':getUser,
+    'userWatched':getWatched,
+    'userLiked':getLiked
 };
 
 

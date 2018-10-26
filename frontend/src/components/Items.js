@@ -11,13 +11,19 @@ class Items extends Component {
         this.props.fetchFilms();
     }
 
+    generateClass(id) {
+        let divClass = "Item-container";
+        divClass += this.props.films.data.userWatched.filter(item => item.id == id).length > 0 ? " watched" : "";
+        return divClass += this.props.films.data.userLiked.filter(item => item.id == id).length > 0 ? " liked" : "";
+    }
+
 	render() {
 		console.log("props:", this.props)
 		console.log(this.props.films)
 		console.log(this.props.films.data)
 		const films = this.props.films.data.films.map(film =>
 			<Link to={"/film/" + film.id}>
-				<div id={film.id} className="Item-container" >
+				<div id={film.id} className={this.generateClass(film.id)} >
                 	<img src={film.poster} alt="poster"/>
 				</div>
 			</Link>)

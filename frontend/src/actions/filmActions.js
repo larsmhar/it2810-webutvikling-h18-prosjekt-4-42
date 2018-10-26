@@ -5,7 +5,7 @@ export const fetchFilms = () => dispatch => {
 	fetch("http://localhost:4000/graphql", {
 	  method: 'POST',
 	    headers: { 'Content-Type': 'application/json' },
-		  body: JSON.stringify({ query: '{ films { Id Title  Poster } }' }),
+		  body: JSON.stringify({ query: '{ films { id title  poster } }' }),
 		  })
 	.then(res => res.json())
 	.then(films => dispatch({
@@ -15,13 +15,13 @@ export const fetchFilms = () => dispatch => {
 }
 
 export const fetchFilm = (id) => dispatch => {
-	console.log(JSON.stringify({ query: '{ films (id: ' + '"' + id + '"' + ') { Id Title Poster } }' }))
+	console.log(JSON.stringify({ query: '{ films (id: ' + '"' + id + '"' + ') { id title poster } }' }))
 	//console.log("Typeof", typeof id)
 	//console.log("fetching single film with id", id)
 	fetch("http://localhost:4000/graphql", {
 	  method: 'POST',
 	    headers: { 'Content-Type': 'application/json' },
-		  body: JSON.stringify({ query: '{ films (id: ' + '"' + id + '"' + ') { Id Title Poster Year Director Plot } }' }),
+		  body: JSON.stringify({ query: '{ films (id: ' + '"' + id + '"' + ') { id title poster year director plot actors } }' }),
 		  })
 	.then(res => res.json())
 	.then(film => dispatch({

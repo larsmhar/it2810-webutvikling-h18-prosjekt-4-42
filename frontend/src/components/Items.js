@@ -16,9 +16,9 @@ class Items extends Component {
 		console.log(this.props.films)
 		console.log(this.props.films.data)
 		const films = this.props.films.data.films.map(film =>
-			<Link to={"/film/" + film.Id}>
-				<div id={film.Id} className="Item-container" >
-                	<img src={film.Poster} alt="poster"/>
+			<Link to={"/film/" + film.id}>
+				<div id={film.id} className="Item-container" >
+                	<img src={film.poster} alt="poster"/>
 				</div>
 			</Link>)
 		return (

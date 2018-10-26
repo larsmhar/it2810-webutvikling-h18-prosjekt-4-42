@@ -39,13 +39,13 @@ class Film extends Component {
 	  console.log(this.props.film.data.films)
 	  const film = this.props.film.data.films.map(film =>
 	      <div className="container">
-	        <img className="header-img" src={film.Poster} />
-	        <img className="poster" src={film.Poster}/>
+	        <img className="header-img" src={film.poster} />
+	        <img className="poster" src={film.poster}/>
 	        <div className="content">
-	          <span className="title">{film.Title}</span> <span className="year">{film.Year}</span><span className="director"><span className="directed">Directed by:</span> {film.Director}</span> 
+	          <span className="title">{film.title}</span> <span className="year">{film.year}</span><span className="director"><span className="directed">Directed by:</span> {film.director}</span> 
 	          <hr/>
-	          <div className="actors">{film.Actors}</div>
-	          <div className="plot">{film.Plot}</div> 
+	          <div className="actors">{film.actors}</div>
+	          <div className="plot">{film.plot}</div> 
 	        </div>
 	        <div className="rate">
 	          <i id="favorite" onClick={this.handleClick} style={{color:this.state.favorite?"#ff5722":"#bebebe"}} className="material-icons md-48">{this.state.favorite ? "favorite":"favorite_border"}</i>

@@ -27,8 +27,8 @@ const schema = buildSchema( `
     userLiked(uid:Int!): [Movie]
 },
 type Mutation {
-    updateLiked(mid:String!, uid:Int!, liked:Int!): [Movie]
-    updateWatched(mid:String!, uid:Int!, liked:Int!): [Movie]
+    updateLiked(mid:String!, uid:Int!): [Movie]
+    updateWatched(mid:String!, uid:Int!): [Movie]
 },
 type Movie {
     id: String
@@ -126,7 +126,7 @@ const updateWatched = function( args ) {
 const getFilms = function( args ) {
     console.log( args );
     if ( args.id ) {
-        return new Promise( ( resolve, reject ) => { 
+        return new Promise( ( resolve, reject ) => {
             db.get( 'SELECT * FROM movie WHERE Id = $id', args.id ).then( function( result ) {
                 if ( result ) {
                     resolve( [result] );

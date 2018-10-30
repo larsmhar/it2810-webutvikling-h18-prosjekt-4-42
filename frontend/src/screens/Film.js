@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchFilm, fetchFilms } from '../actions/filmActions';
+import { fetchFilm, fetchFilms, updateLiked, updateWatched } from '../actions/filmActions';
 import './Film.css';
 
 class Film extends Component {
@@ -24,11 +24,10 @@ class Film extends Component {
 
     handleClick( e ) {
         if ( e.target.id === 'favorite' ) {
-
-            this.setState( {'favorite':!this.state.favorite} );
-
+            this.props.updateLiked( this.props.match.params.id, 1 );
+            // this.setState( {'favorite':!this.state.favorite} );
         } else if ( e.target.id === 'watched' ) {
-
+            this.props.updateWatched( this.props.match.params.id, 1 );
             this.setState( {'watched':!this.state.watched} );
 
         }
@@ -91,4 +90,4 @@ const mapStateToProps = state => ( {
     'loaded': state.films.loaded,
 } );
 
-export default connect( mapStateToProps, { fetchFilm, fetchFilms } )( Film );
+export default connect( mapStateToProps, { fetchFilm, fetchFilms, updateLiked, updateWatched } )( Film );

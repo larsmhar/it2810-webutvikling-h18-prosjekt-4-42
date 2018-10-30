@@ -21,7 +21,7 @@ db.run = promisify( db.run );
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema( `
   type Query {
-    films(id:String, year:String): [Movie]
+    films(mid:String, uid:Int, year:String): [Movie]
     user(username:String!): User
     userWatched(uid:Int!): [Movie]
     userLiked(uid:Int!): [Movie]
@@ -125,9 +125,12 @@ const updateWatched = function( args ) {
 };
 const getFilms = function( args ) {
     console.log( args );
-    if ( args.id ) {
-        return new Promise( ( resolve, reject ) => {
-            db.get( 'SELECT * FROM movie WHERE Id = $id', args.id ).then( function( result ) {
+    if ( args.mid && args.uid ) {
+        return new Promise( ( resolve, reject ) => { 
+            // Sqlite doesn't support full outer join >:(
+            // So we need hacky solution
+            // http://www.sqlitetutorial.net/sqlite-full-outer-join/
+            db.get( 'SELECT * FROM movie LEFT JOIN watched ON (watched.mid = movie.id) WHERE movie.id = $mid1 and watched.uid = $uid UNION SELECT *, NULL, NULL, NULL FROM movie  where movie.id = $mid2 ORDER BY uid DESC', args.mid, args.uid, args.mid ).then( function( result ) {
                 if ( result ) {
                     resolve( [result] );
                 } else {

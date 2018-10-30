@@ -1,4 +1,8 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import {
+    createStore,
+    applyMiddleware,
+    compose
+} from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers/index';
 
@@ -6,22 +10,28 @@ const initialState = {
     'films': {
         'items': {
             'data': {
-                'films':
-				[
-				    {'Title': 'Cars'}
-				],
-                'userWatched':[],
-                'userLiked':[],
+                'films': [{
+                    'title': 'Cars',
+                    'id': 0,
+                }],
+                'userWatched': [{
+                    'title': 'Cars',
+                    'id': 0,
+                }],
+                'userLiked': [{
+                    'title': 'Cars',
+                    'id': 0,
+                }],
             }
         },
         'item': {
             'data': {
-                'films':
-				[
-				    {'Title': 'Cars'}
-				]
+                'films': [{
+                    'Title': 'Cars'
+                }]
             }
-        }
+        },
+        'loaded': false
     }
 };
 
@@ -31,7 +41,7 @@ const store = createStore(
     rootReducer,
     initialState,
     compose(
-        applyMiddleware( ...middleware ),
+        applyMiddleware(...middleware),
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )
 );

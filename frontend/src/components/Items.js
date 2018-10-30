@@ -18,9 +18,6 @@ class Items extends Component {
     }
 
     render() {
-        console.log( 'props:', this.props );
-        console.log( this.props.films );
-        console.log( this.props.films.data );
         const films = this.props.films.data.films.map( film =>
             <Link to={'/film/' + film.id}>
                 <div id={film.id} className={this.generateClass( film.id )} >

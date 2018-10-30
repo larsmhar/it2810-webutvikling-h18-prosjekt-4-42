@@ -43,6 +43,8 @@ header{
   grid-row:1/2;
 }
 
+
+
 .container {
   position:relative;
   display: grid;
@@ -51,6 +53,13 @@ header{
   gap:1em;
   height:85vh;
   padding-top:10vh;
+  animation-name:fadeIn;
+  animation-duration:1s;
+}
+
+@keyframes fadeIn {
+    from {filter:opacity(0);};
+    to {filter:opacity(1);};
 }
 
 .poster{

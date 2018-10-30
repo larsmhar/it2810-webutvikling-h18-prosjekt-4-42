@@ -36,7 +36,15 @@ body, html {
     /* grid-template-rows: 1fr 1fr 1fr; */
     grid-auto-flow: row dense;
     margin:auto;
-}
+    animation-name:fadeIn;
+    animation-duration:1s;
+  }
+
+  @keyframes fadeIn {
+      from {filter:opacity(0);};
+      to {filter:opacity(1);};
+  }
+
 
 .Item-container {
     /* box-sizing: border-box; */

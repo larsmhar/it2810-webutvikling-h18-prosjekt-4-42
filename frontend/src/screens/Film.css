@@ -115,6 +115,10 @@ header{
   color:#bdbdbd;
 }
 
+.hiddenTitle{
+    height:0px;
+}
+
 .actors{
   margin-bottom:10px;
   color:#bdbdbd;

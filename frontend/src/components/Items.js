@@ -21,6 +21,7 @@ class Items extends Component {
         const films = this.props.films.data.films.map( film =>
             <Link to={'/film/' + film.id}>
                 <div id={film.id} className={this.generateClass( film.id )} >
+                    <div class="hiddenTitle">{film.title}</div>
                 	<img src={film.poster} alt="poster"/>
                 </div>
             </Link> );

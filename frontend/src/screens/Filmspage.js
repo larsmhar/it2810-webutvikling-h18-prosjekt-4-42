@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 
-import Login from '../components/Login';
+import Items from '../components/Items';
 
-class Frontpage extends Component {
+class Filmspage extends Component {
     render() {
         return (
             <div className="App-container" style={{'marginTop':'1em'}}>
-                <Login/>
+                <Items/>
             </div>
         );
     }
 }
 
-export default Frontpage;
+export default Filmspage;

@@ -1,12 +1,13 @@
-import { FETCH_FILMS, FETCH_FILM, LOADING, LOADED, UPDATE_LIKED, UPDATE_WATCHED} from './types';
+import { FETCH_FILMS, FETCH_FILM, LOADING, LOADED, UPDATE_LIKED, UPDATE_WATCHED } from './types';
 
-export const fetchFilms = () => dispatch => {
-    //console.log( 'fetching all films' );
+export const fetchFilms = (uid) => dispatch => {
+    console.log( 'fetching all films' );
+    console.log("uid", uid)
     dispatch( { 'type': LOADING} );
     fetch( 'http://localhost:4000/graphql', {
 	  'method': 'POST',
 	    'headers': { 'Content-Type': 'application/json' },
-		  'body': JSON.stringify( { 'query': '{ films { id title  poster } userWatched(uid:1) {id watched} userLiked(uid:1) {id liked} }' } ),
+		  'body': JSON.stringify( { 'query': '{ films { id title  poster } userWatched(uid: ' + uid + ') {id watched} userLiked(uid: ' + uid + ') {id liked} }' } ),
 		  } )
         .then( res => {
             return res.json();

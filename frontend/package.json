@@ -16,7 +16,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "fix": "eslint --fix src/**/*.js"
+    "fix": "eslint --fix src/**/*.js",
+	"cypress:open": "cypress open"
   },
   "eslintConfig": {
     "parser": "babel-eslint",
@@ -91,6 +92,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "cypress": "^3.1.0",
     "redux-devtools": "^3.4.1"
   }
 }

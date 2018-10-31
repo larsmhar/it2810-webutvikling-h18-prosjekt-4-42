@@ -9,6 +9,7 @@ class Film extends Component {
 
     componentWillMount() {
         //console.log( this.props.match.params.id );
+        console.log( this.props );
         this.props.fetchFilms( this.props.user.user.data.user.uid );
         this.props.fetchFilm( this.props.match.params.id, this.props.user.user.data.user.uid );
     }
@@ -42,6 +43,7 @@ class Film extends Component {
 	    //console.log( this.props.film.data );
         //console.log( this.props.film.data.films );
         console.log( this.props.film );
+        console.log( this.props );
         let film;
         if ( this.props.loaded ) {
             console.log( this.props );

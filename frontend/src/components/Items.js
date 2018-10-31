@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 class Items extends Component {
 
     componentWillMount() {
-        this.props.fetchFilms();
+        this.props.fetchFilms( this.props.user.user.data.user.uid );
     }
 
     generateClass( id ) {
@@ -19,9 +19,9 @@ class Items extends Component {
 
     render() {
         const films = this.props.films.data.films.map( film =>
-            <Link to={'/film/' + film.id}>
+            <Link to={'/films/' + film.id}>
                 <div id={film.id} className={this.generateClass( film.id )} >
-                    <div class="hiddenTitle">{film.title}</div>
+                    <div className="hiddenTitle">{film.title}</div>
                 	<img src={film.poster} alt="poster"/>
                 </div>
             </Link> );
@@ -39,7 +39,8 @@ Items.propTypes = {
 };
 
 const mapStateToProps = state => ( {
-    'films': state.films.items
+    'films': state.films.items,
+    'user': state.user,
 } );
 
 export default connect( mapStateToProps, { fetchFilms } )( Items );

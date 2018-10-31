@@ -164,6 +164,7 @@ const getFilms = function( args ) {
 };
 
 const getUser = function( args ) {
+    console.log( 'Getting user', args );
     return new Promise( ( resolve, reject ) => {
         db.get( 'SELECT * FROM user WHERE username = $username', args.username ).then( function( result ) {
             if ( result ) {

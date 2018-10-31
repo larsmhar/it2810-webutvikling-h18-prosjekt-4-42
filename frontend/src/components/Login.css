@@ -1,0 +1,15 @@
+.userField {
+    background-color: #485563;
+    color: #f5f5f5;
+    border: 0.09em solid hsl(150, 8%, 55%);
+    margin-right: 0.5em;
+    width: 20vw;
+    padding: 0.5em; 
+}
+
+.loginBtn {
+    padding: 0.5em;
+    border: 0.09em solid #e4cc0c;
+    color: #f5f5f5;
+    background-color: #102027;
+}

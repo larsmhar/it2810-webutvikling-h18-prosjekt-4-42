@@ -4,3 +4,4 @@ export const LOADING = 'LOADING';
 export const LOADED = 'LOADED';
 export const UPDATE_LIKED = 'UPDATE_LIKED';
 export const UPDATE_WATCHED = 'UPDATE_WATCHED';
+export const GET_USER = 'GET_USER';

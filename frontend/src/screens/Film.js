@@ -10,22 +10,22 @@ class Film extends Component {
     componentWillMount() {
         //console.log( this.props.match.params.id );
         this.props.fetchFilms();
-        this.props.fetchFilm( this.props.match.params.id );
+        this.props.fetchFilm( this.props.match.params.id, 1 );
     }
 
     constructor( props ) {
         super( props );
         this.state = {
-            'favorite':false,
+            'liked':false,
             'watched':false,
         };
         this.handleClick = this.handleClick.bind( this );
     }
 
     handleClick( e ) {
-        if ( e.target.id === 'favorite' ) {
+        if ( e.target.id === 'liked' ) {
             this.props.updateLiked( this.props.match.params.id, 1 );
-            // this.setState( {'favorite':!this.state.favorite} );
+            this.setState( {'liked': !this.state.liked} );
         } else if ( e.target.id === 'watched' ) {
             this.props.updateWatched( this.props.match.params.id, 1 );
             this.setState( {'watched':!this.state.watched} );
@@ -40,16 +40,22 @@ class Film extends Component {
 	    //console.log( this.props.film );
 	    //console.log( this.props.film.data );
         //console.log( this.props.film.data.films );
-        console.log( this.state );
+        console.log( this.props.film );
         let film;
         if ( this.props.loaded) {
             console.log(this.props)
+
+            console.log( this.state.liked, !!this.props.film[0]['liked'] ) 
+            if ( this.state.liked != !!this.props.film[0]['liked'] ) this.setState( { 'liked': !!this.props.film[0]['liked'] } )
+            if ( this.state.watched != !!this.props.film[0]['watched'] ) this.setState( { 'watched': !!this.props.film[0]['watched'] } )
+            /*
             this.props.userLiked.forEach( x => {
                 if ( x['id'] == this.props.film[0]['id'] & this.state.favorite != true ) this.setState( { 'favorite': true }, console.log( 'Liked' ) );
             } );
             this.props.userWatched.forEach( x => {
                 if ( x['id'] == this.props.film[0]['id'] && this.state.watched != true ) this.setState( { 'watched' : true }, console.log( 'watched' ) );
             } );
+            */
     	    film = this.props.film.map( film =>
     	        <div className="container">
     	            <img className="header-img" src={film.poster} />
@@ -61,7 +67,7 @@ class Film extends Component {
     	              <div className="plot">{film.plot}</div>
     	            </div>
     	            <div className="rate">
-    	              <i id="favorite" onClick={this.handleClick} style={{'color':this.state.favorite ? '#ff5722' : '#bebebe'}} className="material-icons md-48">{this.state.favorite ? 'favorite' : 'favorite_border'}</i>
+    	              <i id="liked" onClick={this.handleClick} style={{'color':this.state.liked ? '#ff5722' : '#bebebe'}} className="material-icons md-48">{this.state.liked ? 'favorite' : 'favorite_border'}</i>
     	              <i id="watched" onClick={this.handleClick} style={{'color':this.state.watched ? '#8bc34a' : '#bebebe'}} className="material-icons md-48">visibility</i>
     	            </div>
                 </div> );

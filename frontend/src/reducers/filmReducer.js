@@ -1,4 +1,4 @@
-import { FETCH_FILMS, FETCH_FILM, LOADING, LOADED } from '../actions/types';
+import { FETCH_FILMS, FETCH_FILM, LOADING, LOADED, UPDATE_LIKED, UPDATE_WATCHED } from '../actions/types';
 
 const initialState = {
     'items': [],
@@ -15,6 +15,18 @@ export default function( state = initialState, action ) {
         return {
             ...state,
             'item': action.payload,
+            'loaded': true,
+        };
+    case UPDATE_LIKED:
+        return {
+            ...state,
+            'item':{'data':{'films':action.payload.data.updateLiked}},
+            'loaded': true,
+        };
+    case UPDATE_WATCHED:
+        return {
+            ...state,
+            'item':{'data':{'films':action.payload.data.updateWatched}},
             'loaded': true,
         };
     case LOADING:

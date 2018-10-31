@@ -13,8 +13,8 @@ class Items extends Component {
 
     generateClass( id ) {
         let divClass = 'Item-container';
-        divClass += this.props.films.data.userWatched.filter( item => item.id == id ).length > 0 ? ' watched' : '';
-        return divClass += this.props.films.data.userLiked.filter( item => item.id == id ).length > 0 ? ' liked' : '';
+        divClass += this.props.films.data.userWatched.filter( item => item.id == id ).filter( item => !!item.watched ).length > 0 ? ' watched' : '';
+        return divClass += this.props.films.data.userLiked.filter( item => item.id == id ).filter( item => !!item.liked ).length > 0 ? ' liked' : '';
     }
 
     render() {

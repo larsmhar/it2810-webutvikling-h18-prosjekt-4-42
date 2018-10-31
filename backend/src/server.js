@@ -21,7 +21,7 @@ db.run = promisify( db.run );
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema( `
   type Query {
-    films(id:String, year:String): [Movie]
+    films(mid:String, uid:Int, year:String): [Movie]
     user(username:String!): User
     userWatched(uid:Int!): [Movie]
     userLiked(uid:Int!): [Movie]
@@ -58,29 +58,29 @@ type User {
 const updateLiked = function( args ) {
     console.log( args );
     return new Promise( ( resolve, reject ) => {
-        db.get( 'SELECT * FROM movie INNER JOIN liked on movie.id = liked.mid WHERE liked.uid = $uid AND liked.mid = $mid', args.uid, args.mid )
+        db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
             .then( function( result ) {
                 if ( result ) {
-                    db.run( 'UPDATE liked SET liked = (liked | 1) - (liked & 1) WHERE liked.uid = $uid AND liked.mid = $mid', args.uid, args.mid )
+                    db.run( 'UPDATE userActions SET liked = (liked | 1) - (liked & 1) WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                         .then( function ( result ) {
-                            db.get( 'SELECT * FROM movie INNER JOIN liked on movie.id = liked.mid WHERE liked.uid = $uid AND liked.mid = $mid', args.uid, args.mid )
+                            db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                                 .then( function( result ) {
                                     if ( result ) {
                                         resolve( [result] );
                                     } else {
-                                        reject( new Error( 'Id not found' ) );
+                                        reject( new Error( 'Error on updating like' ) );
                                     }
                                 } );
                         } );
                 } else {
-                    db.run( 'INSERT INTO liked (mid, uid, liked) VALUES ($mid, $uid, 1)', args.mid, args.uid )
+                    db.run( 'INSERT INTO userActions (mid, uid, liked, watched) VALUES ($mid, $uid, 1, 0)', args.mid, args.uid )
                         .then( function ( result ) {
-                            db.get( 'SELECT * FROM movie INNER JOIN liked on movie.id = liked.mid WHERE liked.uid = $uid AND liked.mid = $mid', args.uid, args.mid )
+                            db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                                 .then( function( result ) {
                                     if ( result ) {
                                         resolve( [result] );
                                     } else {
-                                        reject( new Error( 'Id not found' ) );
+                                        reject( new Error( 'Movie has no activity / ID not found' ) );
                                     }
                                 } );
                         } );
@@ -93,12 +93,12 @@ const updateWatched = function( args ) {
     const that = this;
     console.log( args );
     return new Promise( ( resolve, reject ) => {
-        db.get( 'SELECT * FROM movie INNER JOIN watched on movie.id = watched.mid WHERE watched.uid = $uid AND watched.mid = $mid', args.uid, args.mid )
+        db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
             .then( function( result ) {
                 if ( result ) {
-                    db.run( 'UPDATE watched SET watched = (watched| 1) - (watched & 1) WHERE watched.uid = $uid AND watched.mid = $mid', args.uid, args.mid )
+                    db.run( 'UPDATE userActions SET watched = (watched| 1) - (watched & 1) WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                         .then( function ( result ) {
-                            db.get( 'SELECT * FROM movie INNER JOIN watched on movie.id = watched.mid WHERE watched.uid = $uid AND watched.mid = $mid', args.uid, args.mid )
+                            db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                                 .then( function( result ) {
                                     if ( result ) {
                                         resolve( [result] );
@@ -108,9 +108,9 @@ const updateWatched = function( args ) {
                                 } );
                         } );
                 } else {
-                    db.run( 'INSERT INTO watched (mid, uid, watched) VALUES ($mid, $uid, 1)', args.mid, args.uid )
+                    db.run( 'INSERT INTO userActions (mid, uid, watched, liked) VALUES ($mid, $uid, 1, 0)', args.mid, args.uid )
                         .then( function ( result ) {
-                            db.get( 'SELECT * FROM movie INNER JOIN watched on movie.id = watched.mid WHERE watched.uid = $uid AND watched.mid = $mid', args.uid, args.mid )
+                            db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                                 .then( function( result ) {
                                     if ( result ) {
                                         resolve( [result] );
@@ -125,9 +125,12 @@ const updateWatched = function( args ) {
 };
 const getFilms = function( args ) {
     console.log( args );
-    if ( args.id ) {
+    if ( args.mid && args.uid ) {
         return new Promise( ( resolve, reject ) => {
-            db.get( 'SELECT * FROM movie WHERE Id = $id', args.id ).then( function( result ) {
+            // Sqlite doesn't support full outer join >:(
+            // So we need hacky solution
+            // http://www.sqlitetutorial.net/sqlite-full-outer-join/
+            db.get( 'SELECT * FROM movie LEFT JOIN userActions ON (userActions.mid = movie.id) WHERE movie.id = $mid1 and userActions.uid = $uid UNION SELECT *, NULL, NULL, NULL, NULL FROM movie  where movie.id = $mid2 ORDER BY uid DESC', args.mid, args.uid, args.mid ).then( function( result ) {
                 if ( result ) {
                     resolve( [result] );
                 } else {
@@ -174,7 +177,7 @@ const getUser = function( args ) {
 
 const getWatched = function( args ) {
     return new Promise( ( resolve, reject ) => {
-        db.all( 'SELECT * FROM movie INNER JOIN watched on movie.id = watched.mid WHERE watched.uid = $uid', args.uid ).then( function( result ) {
+        db.all( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND watched = 1', args.uid ).then( function( result ) {
             if ( result ) {
                 resolve( result );
             } else {
@@ -187,7 +190,7 @@ const getWatched = function( args ) {
 const getLiked = function( args ) {
     console.log( args );
     return new Promise( ( resolve, reject ) => {
-        db.all( 'SELECT * FROM movie INNER JOIN liked on movie.id = liked.mid WHERE liked.uid = $uid', args.uid ).then( function( result ) {
+        db.all( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND liked = 1', args.uid ).then( function( result ) {
             if ( result ) {
                 resolve( result );
             } else {

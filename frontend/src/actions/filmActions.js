@@ -6,7 +6,7 @@ export const fetchFilms = () => dispatch => {
     fetch( 'http://localhost:4000/graphql', {
 	  'method': 'POST',
 	    'headers': { 'Content-Type': 'application/json' },
-		  'body': JSON.stringify( { 'query': '{ films { id title  poster } userWatched(uid:1) {id}userLiked(uid:1) {id} }' } ),
+		  'body': JSON.stringify( { 'query': '{ films { id title  poster } userWatched(uid:1) {id watched} userLiked(uid:1) {id liked} }' } ),
 		  } )
         .then( res => {
             return res.json();
@@ -18,7 +18,7 @@ export const fetchFilms = () => dispatch => {
         );
 };
 
-export const fetchFilm = ( id ) => dispatch => {
+export const fetchFilm = ( mid, uid ) => dispatch => {
     //console.log( JSON.stringify( { 'query': '{ films (id: ' + '"' + id + '"' + ') { id title poster } }' } ) );
     //console.log("Typeof", typeof id)
     //console.log("fetching single film with id", id)
@@ -26,7 +26,7 @@ export const fetchFilm = ( id ) => dispatch => {
     fetch( 'http://localhost:4000/graphql', {
 	  'method': 'POST',
 	    'headers': { 'Content-Type': 'application/json' },
-		  'body': JSON.stringify( { 'query': '{ films (id: ' + '"' + id + '"' + ') { id title poster year director plot actors } }' } ),
+		  'body': JSON.stringify( { 'query': '{ films (uid: ' + uid + ' mid: "' + mid + '") { id title poster year director plot actors liked watched } }' } ),
 		  } )
         .then( res => res.json() )
         .then( film => dispatch( {
@@ -39,11 +39,11 @@ export const updateLiked = ( mid, uid ) => dispatch => {
     //console.log( JSON.stringify( { 'query': '{ films (id: ' + '"' + id + '"' + ') { id title poster } }' } ) );
     //console.log("Typeof", typeof id)
     //console.log("fetching single film with id", id)
-    dispatch( { 'type': LOADING} );
+    // dispatch( { 'type': LOADING} );
     fetch( 'http://localhost:4000/graphql', {
 	  'method': 'POST',
 	    'headers': { 'Content-Type': 'application/json' },
-		  'body': JSON.stringify( { 'query': ' mutation {updateLiked (mid: "' + mid + '" uid:' + uid + ') { id title poster year director plot actors } }' } ),
+		  'body': JSON.stringify( { 'query': ' mutation {updateLiked (mid: "' + mid + '" uid:' + uid + ') { id title poster year director plot actors liked watched} }' } ),
 		  } )
         .then( res => res.json() )
         .then( film => dispatch( {
@@ -56,12 +56,12 @@ export const updateWatched = ( mid, uid ) => dispatch => {
     //console.log( JSON.stringify( { 'query': '{ films (id: ' + '"' + id + '"' + ') { id title poster } }' } ) );
     //console.log("Typeof", typeof id)
     //console.log("fetching single film with id", id)
-    dispatch( { 'type': LOADING} );
+    // dispatch( { 'type': LOADING} );
     fetch( 'http://localhost:4000/graphql', {
 	  'method': 'POST',
 	    'headers': { 'Content-Type': 'application/json' },
-		  'body': JSON.stringify( { 'query': ' mutation {updateWatched (mid: "' + mid + '" uid:' + uid + ') { id title poster year director plot actors } }' } ),
-		  } )
+		  'body': JSON.stringify( { 'query': ' mutation {updateWatched (mid: "' + mid + '" uid:' + uid + ') { id title poster year director plot actors liked watched} }' } ),
+    } )
         .then( res => res.json() )
         .then( film => dispatch( {
             'type': UPDATE_WATCHED,

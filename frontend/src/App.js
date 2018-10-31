@@ -11,13 +11,11 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <div>
-                    <div className="App">
-                        <header className="App-header">
-                            <div> <Link to='/'> Filmlr</Link></div>
-                        </header>
-                        {/* Had to set margin-top here, because setting in css didn't work?*/}
-                    </div>
+                <div className="App">
+                    <header className="App-header">
+                        <div> <Link to='/'> Filmlr</Link></div>
+                    </header>
+                    {/* Had to set margin-top here, because setting in css didn't work?*/}
                     <Route exact path="/" component={Frontpage} />
                     <Route path="/film/:id" component={Film} />
                 </div>

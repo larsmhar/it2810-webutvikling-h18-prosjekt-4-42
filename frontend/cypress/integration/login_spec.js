@@ -8,7 +8,7 @@ describe('Test login', () => {
 		  .click()
 		cy.contains('Username not found')
 	})
-	it('Should be able to login after writing username and submitting', () => {
+	it('Should be able to login after writing username and submitting, view all of the films and visit the first one', () => {
 		cy.visit('/')
 		cy.get('.userField')
 		  .type('sudo')
@@ -24,5 +24,17 @@ describe('Test login', () => {
 		  .first()
 		  .click()
 		cy.url().should('include', '/films/tt0111161')
+	})
+
+
+	it('Test logging in via request', () => {
+		cy.request('localhost:4000/graphql', { 'query': '{ user(username: "sudo") { username uid } }' }
+		)
+		cy.visit('/films')
+		cy.wait(1000)
+	})
+
+	it('Test getting films via request', () => {
+		cy.request('localhost:4000/graphql', { 'query': '{ films { id title  poster } userWatched(uid: ' + 1 + ') {id watched} userLiked(uid: ' + 1 + ') {id liked} }' })
 	})
 })

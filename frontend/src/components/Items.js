@@ -6,6 +6,9 @@ import { fetchFilms } from '../actions/filmActions';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 class Items extends Component {
+    constructor( props ) {
+        super( props );
+    }
 
     componentWillMount() {
         this.props.fetchFilms( this.props.user.user.data.user.uid );
@@ -18,7 +21,7 @@ class Items extends Component {
     }
 
     render() {
-        const films = this.props.films.data.films.map( film =>
+        const films = this.props.films.data.films.slice( 18 * this.props.pageination.pageination, 18 + 18 * this.props.pageination.pageination ).map( film =>
             <Link to={'/films/' + film.id}>
                 <div id={film.id} className={this.generateClass( film.id )} >
                     <div className="hiddenTitle">{film.title}</div>
@@ -41,6 +44,7 @@ Items.propTypes = {
 const mapStateToProps = state => ( {
     'films': state.films.items,
     'user': state.user,
+    'pageination': state.pageination
 } );
 
 export default connect( mapStateToProps, { fetchFilms } )( Items );

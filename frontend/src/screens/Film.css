@@ -134,11 +134,11 @@ header{
 
 .liked::after{
     position:absolute;
-    content:'😍';
+    content:'❤';
     left:10px;
     bottom:10px;
     font-size:1.8em;
-    color:rgb(215, 33, 172);
+    color:rgba(230, 26, 26, 1);
 }
 
 .liked:hover{

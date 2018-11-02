@@ -25,7 +25,7 @@ class Items extends Component {
             <Link to={'/films/' + film.id}>
                 <div id={film.id} className={this.generateClass( film.id )} >
                     <div className="hiddenTitle">{film.title}</div>
-                	<img src={film.poster} alt="poster"/>
+                	<img id={'img' + film.id} src={film.poster} alt="poster"/>
                 </div>
             </Link> );
         return (

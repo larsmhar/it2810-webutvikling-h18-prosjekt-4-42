@@ -2,7 +2,8 @@
   "name": "it2810-p4-backend",
   "version": "1.0.0",
   "description": "A server backend for it2810 project 4",
-  "main": "server.js",
+  "main": "src/server.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel --presets @babel/env src -d build",
@@ -18,40 +19,66 @@
   "eslintConfig": {
     "parser": "babel-eslint",
     "env": {
-        "node":true,
-        "es6":true
+      "node": true,
+      "es6": true
     },
-    "extends":"eslint:recommended",
-    "rules":{
-        "indent":["error",4],
-        "no-console":0,
-        "no-var":0,
-        "curly":"error",
-        "no-multi-spaces":"error",
-        "array-bracket-spacing":"error",
-        "brace-style":"error",
-        "camelcase":"error",
-        "comma-spacing": ["error", {"before":false, "after": true}],
-        "comma-style": ["error", "last"],
-        "func-call-spacing": ["error", "never"],
-        "keyword-spacing":"error",
-        "no-multiple-empty-lines": "error",
-        "no-trailing-spaces": "error",
-        "quotes":["error","single"],
-        "semi-style": ["error", "last"],
-        "space-in-parens": ["error", "always"],
-        "prefer-const":"error",
-        "no-var":"error",
-        "quote-props":"error",
-        "space-before-blocks":"error",
-        "space-infix-ops":"error",
-        "newline-per-chained-call":"error",
-        "semi": ["error", "always"],
-        "no-unreachable": "error",
-  	  "no-unused-vars": "warn",
-        "no-mixed-spaces-and-tabs":0
+    "extends": "eslint:recommended",
+    "rules": {
+      "indent": [
+        "error",
+        4
+      ],
+      "no-console": 0,
+      "no-var": "error",
+      "curly": "error",
+      "no-multi-spaces": "error",
+      "array-bracket-spacing": "error",
+      "brace-style": "error",
+      "camelcase": "error",
+      "comma-spacing": [
+        "error",
+        {
+          "before": false,
+          "after": true
+        }
+      ],
+      "comma-style": [
+        "error",
+        "last"
+      ],
+      "func-call-spacing": [
+        "error",
+        "never"
+      ],
+      "keyword-spacing": "error",
+      "no-multiple-empty-lines": "error",
+      "no-trailing-spaces": "error",
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi-style": [
+        "error",
+        "last"
+      ],
+      "space-in-parens": [
+        "error",
+        "always"
+      ],
+      "prefer-const": "error",
+      "quote-props": "error",
+      "space-before-blocks": "error",
+      "space-infix-ops": "error",
+      "newline-per-chained-call": "error",
+      "semi": [
+        "error",
+        "always"
+      ],
+      "no-unreachable": "error",
+      "no-unused-vars": "warn",
+      "no-mixed-spaces-and-tabs": 0
     }
-},
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {

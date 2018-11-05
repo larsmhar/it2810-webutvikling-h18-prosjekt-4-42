@@ -2,6 +2,7 @@
   "name": "prosjekt3redux",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://it2810-42.idi.ntnu.no/prosjekt4/",
   "dependencies": {
     "react": "^16.6.0",
     "react-dom": "^16.6.0",

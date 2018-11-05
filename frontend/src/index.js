@@ -7,6 +7,18 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import store from './store/store';
 
+
+import { LOCAL_STORAGE_USER } from './actions/types'
+
+const token = localStorage.getItem( 'user' );
+if ( token ) {
+    store.dispatch( { 
+        'type': LOCAL_STORAGE_USER,
+        'payload': JSON.parse( token ),
+
+    } );
+}
+
 ReactDOM.render(
     <Provider store={store}>
         <App />

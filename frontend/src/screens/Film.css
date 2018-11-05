@@ -102,12 +102,14 @@ header{
 }
 .year{
   font-size:1em;
-  color:rgb( 228 , 204 , 12 );
+  /* color:rgb( 228 , 204 , 12 ); */
+  color:#56c8c1;
   font-weight:700;
 }
 .director{
   font-size:1em;
-  color:rgb( 228 , 204 , 12 );
+  /* color:rgb( 228 , 204 , 12 ); */
+  color:#56c8c1;
   font-weight:700;
 }
 .directed{
@@ -138,11 +140,18 @@ header{
     left:10px;
     bottom:10px;
     font-size:1.8em;
-    color:rgba(230, 26, 26, 1);
+    /* color:rgba(230, 26, 26, 1); */
+    color:#56c8c1;
 }
 
 .liked:hover{
     box-shadow: 0px 0px 4px 2px rgb(55, 255, 63);
+}
+
+hr {
+    border:none;
+    height:1px;
+    background:#56c8c1;
 }
 
 .watched > img{

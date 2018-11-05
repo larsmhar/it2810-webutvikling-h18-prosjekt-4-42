@@ -65,8 +65,8 @@ class Film extends Component {
             */
     	    film = this.props.film.map( film =>
     	        <div className="container">
-    	            <img className="header-img" src={film.poster} />
-    	            <img className="poster" src={film.poster}/>
+    	            <img className="header-img" alt="blurry header" draggable="false" src={film.poster} />
+    	            <img className="poster" alt={film.title} src={film.poster}/>
     	            <div className="content">
     	              <span className="title">{film.title}</span> <span className="year">{film.year}</span><span className="director"><span className="directed">Directed by:</span> {film.director}</span>
     	              <hr/>

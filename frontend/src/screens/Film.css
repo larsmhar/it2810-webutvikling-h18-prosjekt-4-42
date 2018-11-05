@@ -157,9 +157,7 @@ hr {
 .watched > img{
     filter:brightness(0.2);
 }
-span{
-  padding:3px;
-}
+
 .material-icons{
   transition:all 0.7s;
 }

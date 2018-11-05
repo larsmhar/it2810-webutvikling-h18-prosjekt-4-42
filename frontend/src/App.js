@@ -40,7 +40,8 @@ class App extends Component {
                     {console.log( this.props.user.user.data.user )}
                     <Route exact path='/' render={() => this.checkLogin( <Frontpage/>, 'films' ) } />
                     <Route exact path="/films" render={() => this.checkIfLogin( <Filmspage/> ) } />
-                    <Route path="/films/:id" component={Film} />
+                    <Route exact path="/films/:id" render={( props ) => this.checkIfLogin( <Film {...props} /> ) }>
+                    </Route>
                 </div>
             </Router>
         );

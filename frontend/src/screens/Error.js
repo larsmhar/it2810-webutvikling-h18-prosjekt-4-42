@@ -1,19 +1,10 @@
 import React from 'react';
 import { Component } from 'react';
-import { connect } from 'react-redux';
 
 class Error extends Component {
     render() {
-        return (
-            <div>
-                <p>Error</p>
-            </div>
-        );
+        return <p>Error</p>
     }
 }
 
-const mapStateToProps = state => ( {
-    'user': state.user
-} );
-
-export default connect( mapStateToProps )( Error );
+export default Error;

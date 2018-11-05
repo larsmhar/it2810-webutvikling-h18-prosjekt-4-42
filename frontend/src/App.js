@@ -57,6 +57,7 @@ class App extends Component {
                         <Route path="/films/:id" render={( props ) => this.checkIfLogin( <Film {...props} /> ) }/>
                         <Route path="/films" render={() => this.checkIfLogin( <Filmspage/> ) } />
                         <Route exact path='/' render={() => this.checkLogin( <Frontpage/>, 'films' ) } />
+                        <Route path='*' render={() => <p>404 Error and shizz m8</p>} />
                     </Switch>
                 </div>
             </Router>

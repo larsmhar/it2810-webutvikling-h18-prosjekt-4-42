@@ -17,12 +17,12 @@ export default function( state = initialState, action ) {
             'loaded': true,
         };
     case LOCAL_STORAGE_USER:
-        console.log( 'Local user change', action.payload )
         return {
             ...state,
             'user': action.payload,
         };
     case LOG_OUT:
+        window.localStorage.setItem( 'user', JSON.stringify( action.payload ) );
         return {
             ...state,
             'user': action.payload,

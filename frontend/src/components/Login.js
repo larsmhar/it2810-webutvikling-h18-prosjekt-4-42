@@ -34,8 +34,8 @@ class Login extends Component {
         }
         return (
             <form className="loginForm" onSubmit={ this.onHandleSubmit }>
-                <i class="material-icons md-42 userIcon">person</i>
-                <input className="userField" type="text" value={ this.state.username } placeholder="username" onChange={ this.onUsernameChange } autofocus></input>
+                <i className="material-icons md-42 userIcon">person</i>
+                <input className="userField" type="text" value={ this.state.username } placeholder="username" onChange={ this.onUsernameChange } autoFocus></input>
                 <input className="loginBtn" type="submit" value="Log in"/>
             </form>
         );

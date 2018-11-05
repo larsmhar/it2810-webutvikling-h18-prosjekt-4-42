@@ -1,9 +1,6 @@
-import { LOADING, GET_USER } from './types';
+import { LOADING, GET_USER, LOCAL_STORAGE_USER, LOG_OUT } from './types';
 
 export const getUser = ( username ) => dispatch => {
-    //console.log( JSON.stringify( { 'query': '{ films (id: ' + '"' + id + '"' + ') { id title poster } }' } ) );
-    //console.log("Typeof", typeof id)
-    //console.log("fetching single film with id", id)
     console.log( 'Gotting users' );
     dispatch( { 'type': LOADING} );
     fetch( 'http://localhost:4000/graphql', {
@@ -17,3 +14,22 @@ export const getUser = ( username ) => dispatch => {
             'payload': user
         } ) );
 };
+
+export const getLocalStorageUser = ( userData ) => dispatch => {
+    console.log( 'Getting local storage user', userData );
+    dispatch( {
+        'type': LOCAL_STORAGE_USER,
+        'payload': userData,
+    } );
+};
+
+export const logOut = () => dispatch => {
+    dispatch( {
+        'type': LOG_OUT,
+        'payload': {'data':
+            {
+                'user': null
+            }
+        }
+    })
+}

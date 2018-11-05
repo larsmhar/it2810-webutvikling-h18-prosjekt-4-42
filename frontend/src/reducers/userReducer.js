@@ -26,7 +26,7 @@ export default function( state = initialState, action ) {
         return {
             ...state,
             'user': action.payload,
-        }
+        };
     case LOADING:
         return {
             ...state,

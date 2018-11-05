@@ -1,15 +1,47 @@
 .userField {
-    background-color: #485563;
-    color: #f5f5f5;
-    border: 0.09em solid hsl(150, 8%, 55%);
+    /* background-color: #485563; */
+    background:none;
+    /* color: #f5f5f5; */
+    /* border: 0.09em solid hsl(150, 8%, 55%); */
+    border:none;
+    border-bottom: 2px solid #56c8c1;
+    color:#fe4b74;
     margin-right: 0.5em;
     width: 20vw;
-    padding: 0.5em; 
+    padding: 0.5em 0.5em 0.5em 30px;
+    font-weight: 700;
+    /* padding-left: 46px; */
+}
+
+.userField::placeholder{
+  color:#334C48;
+}
+.userField:focus{
+  outline:none;
 }
 
 .loginBtn {
     padding: 0.5em;
-    border: 0.09em solid #e4cc0c;
-    color: #f5f5f5;
+    /* border: 0.09em solid #e4cc0c; */
+    border:none;
+    border-bottom: 2px solid #56c8c1;
+    color: #56c8c1;
     background-color: #102027;
+    cursor:pointer;
+    font-weight:700;
+}
+.loginBtn:hover {
+    border-bottom: 2px solid #fe4b74;
+}
+
+.loginForm {
+    position:relative;
+}
+
+.userIcon {
+    position:absolute;
+    color: #56c8c1;
+}
+.userIcon:hover {
+    color:#56c8c1 !important;
 }

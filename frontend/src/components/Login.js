@@ -33,10 +33,10 @@ class Login extends Component {
             error = ( <div><Errors errors={this.props.user.user.errors} /><p>PPP</p> </div> );
         }
         return (
-            <form onSubmit={ this.onHandleSubmit }>
-                <input className="userField" type="text" value={ this.state.username } onChange={ this.onUsernameChange }></input>
-                <input className="loginBtn" type="submit"></input>
-                {error}
+            <form className="loginForm" onSubmit={ this.onHandleSubmit }>
+                <i class="material-icons md-42 userIcon">person</i>
+                <input className="userField" type="text" value={ this.state.username } placeholder="username" onChange={ this.onUsernameChange } autofocus></input>
+                <input className="loginBtn" type="submit" value="Log in"/>
             </form>
         );
     }

@@ -1,9 +1,10 @@
 import { LOADING, GET_USER, LOCAL_STORAGE_USER, LOG_OUT } from './types';
+import { IP } from './constants.js';
 
 export const getUser = ( username ) => dispatch => {
     console.log( 'Gotting users' );
     dispatch( { 'type': LOADING} );
-    fetch( 'http://localhost:4000/graphql', {
+    fetch( IP, {
 	  'method': 'POST',
 	    'headers': { 'Content-Type': 'application/json' },
 		  'body': JSON.stringify( { 'query': '{ user (username: "' + username + '") { uid username } }' } ),

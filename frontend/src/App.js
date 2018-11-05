@@ -8,8 +8,17 @@ import Frontpage from './screens/Frontpage';
 import Film from './screens/Film';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
+import { getLocalStorageUser, logOut } from './actions/userActions'
+
 
 class App extends Component {
+
+
+    componentWillMount() {
+        if ( window.localStorage.getItem( 'user' ) ) {
+            this.props.getLocalStorageUser( JSON.parse( window.localStorage.getItem( 'user' ) ) );
+        }
+    }
 
     checkLogin( component, destination ) {
         return this.props.user.user.data.user ? <Redirect to={ destination }/> : component;
@@ -27,6 +36,7 @@ class App extends Component {
                 <div className="App">
                     <header className="App-header">
                         <div> <Link to='/'> Filmlr</Link></div>
+                        <button className='loginBtn' onClick={ this.props.logOut }> Log out button </button>
                     </header>
                     {/* Had to set margin-top here, because setting in css didn't work?*/}
                     {/*
@@ -52,5 +62,5 @@ const mapStateToProps = state => ( {
     'user': state.user
 } );
 
-export default connect( mapStateToProps )( App );
+export default connect( mapStateToProps, { getLocalStorageUser, logOut } )( App );
 

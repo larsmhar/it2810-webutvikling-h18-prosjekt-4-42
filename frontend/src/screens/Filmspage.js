@@ -32,7 +32,7 @@ class Filmspage extends Component {
     render() {
         return (
             <div style={{'display':'flex', 'flexDirection':'column', 'justifyContent':'center'}}>
-                <div style={{'display':'inline-block'}}>
+                <div style={{'display':'flex', 'justifyContent':'center', 'padding':'10px'}}>
                     <form onSubmit={ this.onHandleSubmit }>
                         <i class="material-icons md-42 userIcon">search</i>
                         <input className="userField" type="text" value={ this.state.searchString } placeholder="search" onInput={ this.onSearchChange } autofocus></input>

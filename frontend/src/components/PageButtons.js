@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { goForwards, goBackwards } from '../actions/pageinationActions.js';
+import { fetchFilms } from '../actions/filmActions';
 
 import './PageButtons.css';
 class PageButtons extends Component {
@@ -12,8 +13,11 @@ class PageButtons extends Component {
     buttonHandler( e ) {
         if ( e.target.id == 'btnBck' ) {
             this.props.goBackwards();
+            this.props.fetchFilms( this.props.user.user.data.user.uid, this.props.pageination.pageination * 18 - 18, 18, this.props.searchString );
         } else {
             this.props.goForwards();
+            this.props.fetchFilms( this.props.user.user.data.user.uid, this.props.pageination.pageination * 18 + 18, 18, this.props.searchString );
+
         }
     }
     render() {
@@ -31,7 +35,8 @@ class PageButtons extends Component {
 }
 
 const mapStateToProps = state => ( {
-    'pageination': state.pageination
+    'pageination': state.pageination,
+    'user': state.user
 } );
 
-export default connect( mapStateToProps, { goBackwards, goForwards } )( PageButtons );
+export default connect( mapStateToProps, { goBackwards, goForwards, fetchFilms } )( PageButtons );

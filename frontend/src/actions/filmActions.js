@@ -1,13 +1,13 @@
 import { FETCH_FILMS, FETCH_FILM, SEARCH_FILM, LOADING, LOADED, UPDATE_LIKED, UPDATE_WATCHED } from './types';
 
-export const fetchFilms = ( uid, title = '', year = '' ) => dispatch => {
+export const fetchFilms = ( uid, skip, first, title = '', year = '' ) => dispatch => {
     console.log( 'fetching all films' );
-    console.log("uid", uid)
+    console.log( skip, first );
     dispatch( { 'type': LOADING} );
     fetch( 'http://localhost:4000/graphql', {
 	  'method': 'POST',
 	    'headers': { 'Content-Type': 'application/json' },
-		  'body': JSON.stringify( { 'query': '{ films(title:"' + title + '" year:"' + year + '") { id title  poster } userWatched(uid: ' + uid + ') {id watched} userLiked(uid: ' + uid + ') {id liked} }' } ),
+		  'body': JSON.stringify( { 'query': '{ films(title:"' + title + '" year:"' + year + '" first: ' + first + ' skip: ' + skip + ' ) { id title  poster } userWatched(uid: ' + uid + ') {id watched} userLiked(uid: ' + uid + ') {id liked} }' } ),
 		  } )
         .then( res => {
             return res.json();
@@ -26,7 +26,7 @@ export const searchTitle = ( searchString ) => dispatch => {
     } );
 };
 
-export const fetchFilm = ( mid, uid ) => dispatch => {
+export const fetchFilm = ( mid, uid, first, skip ) => dispatch => {
     //console.log( JSON.stringify( { 'query': '{ films (id: ' + '"' + id + '"' + ') { id title poster } }' } ) );
     //console.log("Typeof", typeof id)
     //console.log("fetching single film with id", id)
@@ -34,7 +34,7 @@ export const fetchFilm = ( mid, uid ) => dispatch => {
     fetch( 'http://localhost:4000/graphql', {
 	  'method': 'POST',
 	    'headers': { 'Content-Type': 'application/json' },
-		  'body': JSON.stringify( { 'query': '{ films (uid: ' + uid + ' mid: "' + mid + '") { id title poster year director plot actors liked watched } }' } ),
+		  'body': JSON.stringify( { 'query': '{ films (uid: ' + uid + ' mid: "' + mid + '" first: ' + first + ' skip: ' + skip + ') { id title poster year director plot actors liked watched } }' } ),
 		  } )
         .then( res => res.json() )
         .then( film => dispatch( {

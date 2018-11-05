@@ -62,3 +62,30 @@ body, html {
     transition: all 0.5s;
     box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
+
+
+@media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 667px) {
+      .App-container {
+          grid-template-columns: repeat(2, max-content);
+      }
+}
+
+
+@media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 900px)
+  and (orientation: landscape) {
+      .App-container {
+          grid-template-columns: repeat(3, max-content);
+      }
+}
+
+@media only screen
+  and (min-device-width: 768px)
+  and (max-device-width: 1024px) {
+      .App-container {
+          grid-template-columns: repeat(3, max-content);
+      }
+}

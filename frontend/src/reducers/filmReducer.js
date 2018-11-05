@@ -1,7 +1,9 @@
-import { FETCH_FILMS, FETCH_FILM, LOADING, LOADED, UPDATE_LIKED, UPDATE_WATCHED } from '../actions/types';
+import { FETCH_FILMS, SEARCH_FILM, FETCH_FILM, LOADING, LOADED, UPDATE_LIKED, UPDATE_WATCHED } from '../actions/types';
 
 const initialState = {
     'items': [],
+    'searchString':'',
+    'year':''
 };
 
 export default function( state = initialState, action ) {
@@ -15,6 +17,12 @@ export default function( state = initialState, action ) {
         return {
             ...state,
             'item': action.payload,
+            'loaded': true,
+        };
+    case SEARCH_FILM:
+        return {
+            ...state,
+            'searchString': action.payload,
             'loaded': true,
         };
     case UPDATE_LIKED:

@@ -14,9 +14,14 @@ class App extends Component {
     checkLogin( component, destination ) {
         return this.props.user.user.data.user ? <Redirect to={ destination }/> : component;
     }
+
+    checkIfLogin( component, destination = '/' ) {
+        return this.props.user.user.data.user ? component : <Redirect to={ destination }/>;
+    }
+
     render() {
         //localStorage.setItem("thing", "datum")
-        console.log(localStorage.getItem("thing"))
+        console.log( localStorage.getItem( 'thing' ) );
         return (
             <Router>
                 <div className="App">
@@ -34,7 +39,7 @@ class App extends Component {
                     */}
                     {console.log( this.props.user.user.data.user )}
                     <Route exact path='/' render={() => this.checkLogin( <Frontpage/>, 'films' ) } />
-                    <Route exact path="/films" component={Filmspage}/>
+                    <Route exact path="/films" render={() => this.checkIfLogin( <Filmspage/> ) } />
                     <Route path="/films/:id" component={Film} />
                 </div>
             </Router>

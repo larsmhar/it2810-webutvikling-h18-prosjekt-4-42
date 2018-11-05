@@ -22,6 +22,7 @@ db.run = promisify( db.run );
 const schema = buildSchema( `
   type Query {
     films(mid:String, uid:Int, year:String): [Movie]
+    searchFilms(title:String, year: String): [Movie]
     user(username:String!): User
     userWatched(uid:Int!): [Movie]
     userLiked(uid:Int!): [Movie]
@@ -201,9 +202,31 @@ const getLiked = function( args ) {
     } );
 };
 
+const searchFilms = function( args ) {
+    if ( !args.year && !args.title ) {
+        return new Error( 'Please specify either year or title' );
+    } else if ( args.year && args.title ) {
+        return new Error( 'Please specify only year or only title' );
+    }
+    return new Promise( ( resolve, reject ) => {
+        db.all( 'SELECT * FROM movie' ).then( function( result ) {
+            if ( result ) {
+                if ( !!args.year ) {
+                    resolve( result.filter( movie => movie.year >= args.year ) );
+                } else {
+                    resolve( result.filter( movie => movie.title.toLowerCase().includes( args.title.toLowerCase() ) ) );
+                }
+            } else {
+                reject( new Error( 'No movies found' ) );
+            }
+        } );
+    } );
+};
+
 // The root provides a resolver function for each API endpoint
 const root = {
     'films': getFilms,
+    'searchFilms': searchFilms,
     'user': getUser,
     'userWatched': getWatched,
     'userLiked': getLiked,

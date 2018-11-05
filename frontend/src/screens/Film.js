@@ -68,7 +68,8 @@ class Film extends Component {
     	            <img className="header-img" alt="blurry header" draggable="false" src={film.poster} />
     	            <img className="poster" alt={film.title} src={film.poster}/>
     	            <div className="content">
-    	              <span className="title">{film.title}</span> <span className="year">{film.year}</span><span className="director"><span className="directed">Directed by:</span> {film.director}</span>
+    	              <span className="title">{film.title}</span> <span className="year">{film.year}</span> <br/>
+                        <span className="director"><span className="directed">Directed by:</span> {film.director}</span>
     	              <hr/>
     	              <div className="actors">{film.actors}</div>
     	              <div className="plot">{film.plot}</div>

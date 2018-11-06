@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Filmspage from './screens/Filmspage';
 import Frontpage from './screens/Frontpage';
 import Film from './screens/Film';
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Redirect, Switch } from 'react-router-dom';
 
 import { getLocalStorageUser, logOut } from './actions/userActions'
 
@@ -48,10 +48,16 @@ class App extends Component {
                     } />
                     */}
                     {console.log( this.props.user.user.data.user )}
-                    <Route exact path='/' render={() => this.checkLogin( <Frontpage/>, 'films' ) } />
-                    <Route exact path="/films" render={() => this.checkIfLogin( <Filmspage/> ) } />
-                    <Route exact path="/films/:id" render={( props ) => this.checkIfLogin( <Film {...props} /> ) }>
-                    </Route>
+                    {/*
+                        <Route exact path='/' render={() => this.checkLogin( <Frontpage/>, 'films' ) } />
+                        <Route path="/films" render={() => this.checkIfLogin( <Filmspage/> ) } />
+                        <Route path="/films/:id" render={( props ) => this.checkIfLogin( <Film {...props} /> ) }/>
+                        */}
+                    <Switch>
+                        <Route path="/films/:id" render={( props ) => this.checkIfLogin( <Film {...props} /> ) }/>
+                        <Route path="/films" render={() => this.checkIfLogin( <Filmspage/> ) } />
+                        <Route exact path='/' render={() => this.checkLogin( <Frontpage/>, 'films' ) } />
+                    </Switch>
                 </div>
             </Router>
         );

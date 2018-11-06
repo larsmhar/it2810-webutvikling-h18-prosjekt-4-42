@@ -36,7 +36,8 @@ class PageButtons extends Component {
 
 const mapStateToProps = state => ( {
     'pageination': state.pageination,
-    'user': state.user
+    'user': state.user,
+    'searchString': state.films.searchString
 } );
 
 export default connect( mapStateToProps, { goBackwards, goForwards, fetchFilms } )( PageButtons );

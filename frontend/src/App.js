@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import Filmspage from './screens/Filmspage';
 import Frontpage from './screens/Frontpage';
 import Film from './screens/Film';
+import Error from './screens/Error';
 import { BrowserRouter as Router, Route, Link, Redirect, Switch } from 'react-router-dom';
 
 import { getLocalStorageUser, logOut } from './actions/userActions'
@@ -57,7 +58,7 @@ class App extends Component {
                         <Route path="/films/:id" render={( props ) => this.checkIfLogin( <Film {...props} /> ) }/>
                         <Route path="/films" render={() => this.checkIfLogin( <Filmspage/> ) } />
                         <Route exact path='/' render={() => this.checkLogin( <Frontpage/>, 'films' ) } />
-                        <Route path='*' render={() => <p>404 Error and shizz m8</p>} />
+                        <Route path='*' component={ Error } />
                     </Switch>
                 </div>
             </Router>

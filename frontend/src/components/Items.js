@@ -11,7 +11,7 @@ class Items extends Component {
     }
 
     componentWillMount() {
-        this.props.fetchFilms( this.props.user.user.data.user.uid, this.props.pageination.pageination * 18, 18, this.props.searchString );
+        this.props.fetchFilms( this.props.user.user.data.user.uid, this.props.pageination.pageination * 18, 18, this.props.searchString, this.props.year );
     }
 
     generateClass( id ) {
@@ -44,6 +44,7 @@ Items.propTypes = {
 const mapStateToProps = state => ( {
     'films': state.films.items,
     'searchString': state.films.searchString,
+    'year': state.films.year,
     'user': state.user,
     'pageination': state.pageination
 } );

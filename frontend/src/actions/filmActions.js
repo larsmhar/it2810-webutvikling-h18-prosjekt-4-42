@@ -1,14 +1,12 @@
-import { FETCH_FILMS, FETCH_FILM, SEARCH_FILM, LOADING, LOADED, UPDATE_LIKED, UPDATE_WATCHED } from './types';
+import { FETCH_FILMS, FETCH_FILM, SEARCH_FILM, LOADING, LOADED, UPDATE_LIKED, UPDATE_WATCHED, FILTER_WATCHED } from './types';
 import { IP } from './constants.js';
 
 export const fetchFilms = ( uid, skip, first, title = '', year = '' ) => dispatch => {
-    console.log( 'fetching all films' );
-    console.log( skip, first );
     dispatch( { 'type': LOADING} );
     fetch( IP, {
 	  'method': 'POST',
 	    'headers': { 'Content-Type': 'application/json' },
-		  'body': JSON.stringify( { 'query': '{ films(title:"' + title + '" year:"' + year + '" first: ' + first + ' skip: ' + skip + ' ) { id title  poster } userWatched(uid: ' + uid + ') {id watched} userLiked(uid: ' + uid + ') {id liked} }' } ),
+		  'body': JSON.stringify( { 'query': '{ films(title:"' + title + '" year:"' + year + '" first: ' + first + ' skip: ' + skip + 'uid:' + uid + ' ) { id title  poster } userWatched(uid: ' + uid + ') {id watched} userLiked(uid: ' + uid + ') {id liked} }' } ),
 		  } )
         .then( res => {
             return res.json();
@@ -24,6 +22,13 @@ export const searchTitle = ( searchString ) => dispatch => {
     dispatch( {
         'type': SEARCH_FILM,
         'payload': searchString
+    } );
+};
+
+export const filterWatched = ( filterWatched ) => dispatch => {
+    dispatch( {
+        'type': FILTER_WATCHED,
+        'payload': filterWatched
     } );
 };
 

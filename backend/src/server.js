@@ -4,6 +4,7 @@ const { buildSchema } = require( 'graphql' );
 const sqlite3 = require( 'sqlite3' ).verbose();
 import {promisify} from 'bluebird';
 import cors from 'cors';
+import { triggerAsyncId } from 'async_hooks';
 //https://graphql.org/graphql-js/running-an-express-graphql-server/
 //https://medium.com/codingthesmartway-com-blog/creating-a-graphql-server-with-node-js-and-express-f6dddc5320e1
 
@@ -21,7 +22,7 @@ db.run = promisify( db.run );
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema( `
   type Query {
-    films(mid:String, uid:Int, year:String, title:String, first:Int!, skip:Int!): [Movie]
+    films(mid:String, uid:Int!, year:String, title:String, first:Int!, skip:Int!, filterWatched:Int): [Movie]
     searchFilms(title:String, year: String, first:Int!, skip:Int!): [Movie]
     user(username:String!): User
     userWatched(uid:Int!): [Movie]
@@ -125,8 +126,10 @@ const updateWatched = function( args ) {
     } );
 };
 const getFilms = function( args ) {
+    const searchString = args.filterWatched ? 'SELECT * FROM movie WHERE id NOT IN (SELECT mid FROM userActions WHERE uid = ' + args.uid + ')' : 'SELECT * FROM movie';
+    
     console.log( args );
-    if ( args.mid && args.uid ) {
+    if ( args.mid && args.uid ) 
         return new Promise( ( resolve, reject ) => {
             // Sqlite doesn't support full outer join >:(
             // So we need hacky solution
@@ -140,9 +143,8 @@ const getFilms = function( args ) {
 
             } );
         } );
-    }
     return new Promise( ( resolve, reject ) => {
-        db.all( 'SELECT * FROM movie' ).then( function( result ) {
+        db.all( searchString ).then( function( result ) {
             if ( result ) {
                 result = args.title ? result.filter( movie => movie.title.toLowerCase().includes( args.title.toLowerCase() ) ) : result;
                 result = args.year ? result.filter( movie => movie.year >= args.year ) : result;

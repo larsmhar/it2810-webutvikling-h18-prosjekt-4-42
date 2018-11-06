@@ -13,10 +13,10 @@ class PageButtons extends Component {
     buttonHandler( e ) {
         if ( e.target.id == 'btnBck' ) {
             this.props.goBackwards();
-            this.props.fetchFilms( this.props.user.user.data.user.uid, this.props.pageination.pageination * 18 - 18, 18, this.props.searchString );
+            this.props.fetchFilms( this.props.user.user.data.user.uid, this.props.pageination.pageination * 18 - 18, 18, this.props.searchString, this.props.year );
         } else {
             this.props.goForwards();
-            this.props.fetchFilms( this.props.user.user.data.user.uid, this.props.pageination.pageination * 18 + 18, 18, this.props.searchString );
+            this.props.fetchFilms( this.props.user.user.data.user.uid, this.props.pageination.pageination * 18 + 18, 18, this.props.searchString, this.props.year );
 
         }
     }
@@ -37,7 +37,8 @@ class PageButtons extends Component {
 const mapStateToProps = state => ( {
     'pageination': state.pageination,
     'user': state.user,
-    'searchString': state.films.searchString
+    'searchString': state.films.searchString,
+    'year': state.films.year
 } );
 
 export default connect( mapStateToProps, { goBackwards, goForwards, fetchFilms } )( PageButtons );

@@ -49,7 +49,7 @@ class Filmspage extends Component {
                         <input className="userField" type="text" value={ this.state.searchString } placeholder="search" onInput={ this.onSearchChange } autofocus></input>
                         <input className="loginBtn" type="submit" value="search" /> <br/>
                         <label for="year"> Show only movies released after: </label>
-                        <input className="yearField" type="number" id="year" name="year" onInput={this.onYearChange} value={this.state.year} min="1900" max={( new Date ).getFullYear()} />
+                        <input className="yearField" type="number" id="year" name="year" onInput={this.onYearChange} value={this.state.year} min="1900" max={( new Date() ).getFullYear()} />
                     </form>
                 </div>
                 <div className="App-container" style={{'marginTop':'1em'}}>

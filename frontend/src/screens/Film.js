@@ -10,8 +10,9 @@ class Film extends Component {
     componentWillMount() {
         //console.log( this.props.match.params.id );
         console.log( this.props );
-        this.props.fetchFilms( this.props.user.user.data.user.uid );
-        this.props.fetchFilm( this.props.match.params.id, this.props.user.user.data.user.uid );
+        console.log( this.props.pageination )
+        this.props.fetchFilms( this.props.user.user.data.user.uid, this.props.pageination.pageination, 18 );
+        this.props.fetchFilm( this.props.match.params.id, this.props.user.user.data.user.uid, 0, 1 );
     }
 
     constructor( props ) {
@@ -24,7 +25,7 @@ class Film extends Component {
     }
 
     handleClick( e ) {
-        console.log( this.props.user.user.data )
+        console.log( this.props.user.user.data );
         if ( e.target.id === 'liked' ) {
             this.props.updateLiked( this.props.match.params.id, this.props.user.user.data.user.uid );
             //this.setState( {'liked': !this.state.liked} );
@@ -102,6 +103,7 @@ const mapStateToProps = state => ( {
     'userWatched': state.films.items.data.userWatched,
     'loaded': state.films.loaded,
     'user': state.user,
+    'pageination': state.pageination
 } );
 
 export default connect( mapStateToProps, { fetchFilm, fetchFilms, updateLiked, updateWatched } )( Film );

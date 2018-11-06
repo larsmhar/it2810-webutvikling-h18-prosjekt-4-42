@@ -21,8 +21,8 @@ db.run = promisify( db.run );
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema( `
   type Query {
-    films(mid:String, uid:Int, year:String, title:String): [Movie]
-    searchFilms(title:String, year: String): [Movie]
+    films(mid:String, uid:Int, year:String, title:String, first:Int!, skip:Int!): [Movie]
+    searchFilms(title:String, year: String, first:Int!, skip:Int!): [Movie]
     user(username:String!): User
     userWatched(uid:Int!): [Movie]
     userLiked(uid:Int!): [Movie]
@@ -144,9 +144,9 @@ const getFilms = function( args ) {
     return new Promise( ( resolve, reject ) => {
         db.all( 'SELECT * FROM movie' ).then( function( result ) {
             if ( result ) {
-                result = !!args.title ? result.filter( movie => movie.title.toLowerCase().includes( args.title.toLowerCase() ) ) : result;
-                result = !!args.year ? result.filter( movie => movie.year >= args.year ) : result;
-                resolve( result );
+                result = args.title ? result.filter( movie => movie.title.toLowerCase().includes( args.title.toLowerCase() ) ).slice( args.skip, args.skip + args.first ) : result;
+                result = args.year ? result.filter( movie => movie.year >= args.year ): result;
+                resolve( result.slice( args.skip, args.skip + args.first )  );
             } else {
                 reject( new Error( 'Id not found' ) );
             }
@@ -201,10 +201,10 @@ const searchFilms = function( args ) {
     return new Promise( ( resolve, reject ) => {
         db.all( 'SELECT * FROM movie' ).then( function( result ) {
             if ( result ) {
-                if ( !!args.year ) {
-                    resolve( result.filter( movie => movie.year >= args.year ) );
+                if ( args.year ) {
+                    resolve( result.filter( movie => movie.year >= args.year ).slice( args.skip, args.skip + args.first ) );
                 } else {
-                    resolve( result.filter( movie => movie.title.toLowerCase().includes( args.title.toLowerCase() ) ) );
+                    resolve( result.filter( movie => movie.title.toLowerCase().includes( args.title.toLowerCase() ) ).slice( args.skip, args.skip + args.first ) );
                 }
             } else {
                 reject( new Error( 'No movies found' ) );

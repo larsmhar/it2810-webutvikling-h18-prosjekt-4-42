@@ -11,7 +11,7 @@ class Items extends Component {
     }
 
     componentWillMount() {
-        this.props.fetchFilms( this.props.user.user.data.user.uid, this.props.searchString);
+        this.props.fetchFilms( this.props.user.user.data.user.uid, this.props.pageination.pageination * 18, 18, this.props.searchString );
     }
 
     generateClass( id ) {
@@ -21,7 +21,7 @@ class Items extends Component {
     }
 
     render() {
-        const films = this.props.films.data.films.slice( 18 * this.props.pageination.pageination, 18 + 18 * this.props.pageination.pageination ).map( film =>
+        const films = this.props.films.data.films.map( film =>
             <Link to={'/films/' + film.id}>
                 <div id={film.id} className={this.generateClass( film.id )} >
                     <div className="hiddenTitle">{film.title}</div>

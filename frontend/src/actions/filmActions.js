@@ -1,4 +1,4 @@
-import { FETCH_FILMS, FETCH_FILM, SEARCH_FILM, LOADING, LOADED, UPDATE_LIKED, UPDATE_WATCHED, FILTER_WATCHED } from './types';
+import { FETCH_FILMS, FETCH_FILM, SEARCH_FILM, LOADING, LOADED, UPDATE_LIKED, UPDATE_WATCHED, FILTER_WATCHED, FILTER_YEAR } from './types';
 import { IP } from './constants.js';
 
 export const fetchFilms = ( uid, skip, first, title = '', year = '' ) => dispatch => {
@@ -29,6 +29,13 @@ export const filterWatched = ( filterWatched ) => dispatch => {
     dispatch( {
         'type': FILTER_WATCHED,
         'payload': filterWatched
+    } );
+}
+
+export const filterYear = ( year ) => dispatch => {
+    dispatch( {
+        'type': FILTER_YEAR,
+        'payload': year
     } );
 };
 

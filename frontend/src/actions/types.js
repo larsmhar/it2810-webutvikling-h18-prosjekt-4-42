@@ -11,3 +11,4 @@ export const PAGE_BACKWARDS = 'PAGE_BACKWARDS';
 export const LOCAL_STORAGE_USER = 'LOCAL_STORAGE_USER';
 export const LOG_OUT = 'LOG_OUT';
 export const FILTER_WATCHED = 'FILTER_WATCHED';
+export const FILTER_YEAR = 'FILTER_YEAR';

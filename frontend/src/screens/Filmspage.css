@@ -1,0 +1,14 @@
+.yearField {
+    background:none;
+    border:none;
+    border-bottom: 2px solid #56c8c1;
+    color:#fe4b74;
+    margin-top:10px;
+}
+
+.yearField::placeholder{
+  color:#334C48;
+}
+.yearField:focus{
+  outline:none;
+}

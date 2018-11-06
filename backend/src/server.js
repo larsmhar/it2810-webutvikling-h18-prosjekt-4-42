@@ -144,9 +144,9 @@ const getFilms = function( args ) {
     return new Promise( ( resolve, reject ) => {
         db.all( 'SELECT * FROM movie' ).then( function( result ) {
             if ( result ) {
-                result = args.title ? result.filter( movie => movie.title.toLowerCase().includes( args.title.toLowerCase() ) ).slice( args.skip, args.skip + args.first ) : result;
-                result = args.year ? result.filter( movie => movie.year >= args.year ): result;
-                resolve( result.slice( args.skip, args.skip + args.first )  );
+                result = args.title ? result.filter( movie => movie.title.toLowerCase().includes( args.title.toLowerCase() ) ) : result;
+                result = args.year ? result.filter( movie => movie.year >= args.year ) : result;
+                resolve( result.slice( args.skip, args.skip + args.first ) );
             } else {
                 reject( new Error( 'Id not found' ) );
             }

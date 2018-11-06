@@ -11,7 +11,7 @@ class Filmspage extends Component {
         super( props );
         this.state = {
             'searchString': '',
-            'filterWatched': false
+            'filterWatched': false,
             'year': '1900',
         };
         this.onHandleSubmit = this.onHandleSubmit.bind( this );
@@ -47,12 +47,8 @@ class Filmspage extends Component {
         this.setState( { 
             'searchString': this.props.searchString,
             'filterWatched': this.props.filterWatched,
-            'year'
+            'year': this.props.year
          } );
-=======
-        this.setState( { 'searchString': this.props.searchString } );
-        this.setState( { 'year': this.props.year } );
->>>>>>> frontend/src/screens/Filmspage.js
     }
 
     render() {
@@ -83,16 +79,9 @@ class Filmspage extends Component {
 const mapStateToProps = state => ( {
     'user': state.user,
     'searchString': state.films.searchString,
-<<<<<<< frontend/src/screens/Filmspage.js
     'filterWatched': state.films.filterWatched,
-    'pageination': state.pageination
-} );
-
-export default connect( mapStateToProps, { searchTitle, fetchFilms, filterWatched } )( Filmspage );
-=======
+    'pageination': state.pageination,
     'year': state.films.year,
-    'pageination': state.pageination
 } );
 
-export default connect( mapStateToProps, { searchTitle, filterYear, fetchFilms } )( Filmspage );
->>>>>>> frontend/src/screens/Filmspage.js
+export default connect( mapStateToProps, { searchTitle, filterYear, fetchFilms, filterWatched } )( Filmspage );

@@ -126,7 +126,7 @@ const updateWatched = function( args ) {
     } );
 };
 const getFilms = function( args ) {
-    const searchString = args.filterWatched ? 'SELECT * FROM movie WHERE id NOT IN (SELECT mid FROM userActions WHERE uid = ' + args.uid + ')' : 'SELECT * FROM movie';
+    const searchString = args.filterWatched ? 'SELECT * FROM movie WHERE id NOT IN (SELECT mid FROM userActions WHERE uid = ' + args.uid + ' and watched = 1)' : 'SELECT * FROM movie';
     
     console.log( args );
     if ( args.mid && args.uid ) 

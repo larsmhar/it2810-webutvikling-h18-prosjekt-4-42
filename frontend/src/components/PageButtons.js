@@ -22,12 +22,13 @@ class PageButtons extends Component {
     }
     render() {
         const page = this.props.pageination.pageination;
-        const btnBck = page > 0 ? <i id="btnBck" className="material-icons" onClick={this.buttonHandler}>arrow_back_ios</i> : null;
-        const btnFwd = page < ( 250 / 18 ) - 1 ? < i id="btnFwd" className="material-icons" onClick={this.buttonHandler}>arrow_forward_ios</i> : null;
+        const total = this.props.total;
+        const btnBck = page > 0 ? <i id="btnBck" className="material-icons" onClick={this.buttonHandler} style={{'cursor':'pointer'}}>arrow_back_ios</i> : <i id="btnBck" className="material-icons"  style={{'filter':'opacity(0)'}}>first_page</i>;
+        const btnFwd = page < ( total / 18 ) - 1 ? < i id="btnFwd" className="material-icons" onClick={this.buttonHandler} style={{'cursor':'pointer'}}>arrow_forward_ios</i> : < i id="btnFwd" className="material-icons" style={{'filter':'opacity(0)'}}>last_page</i> ;
         return (
-            <div className="pageButtons">
+            <div className="pageButtons" style={{'userSelect':'none'}}>
                 {btnBck}
-                Page {page + 1}
+                Page {page + 1} of {Math.ceil(total / 18 )}
                 {btnFwd}
             </div>
         );
@@ -35,6 +36,7 @@ class PageButtons extends Component {
 }
 
 const mapStateToProps = state => ( {
+    'total': state.films.items.data.films.total,
     'pageination': state.pageination,
     'user': state.user,
     'searchString': state.films.searchString,

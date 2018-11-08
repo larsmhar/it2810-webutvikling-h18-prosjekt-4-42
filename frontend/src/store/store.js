@@ -10,10 +10,13 @@ const initialState = {
     'films': {
         'items': {
             'data': {
-                'films': [{
-                    'title': 'Cars',
-                    'id': 0,
-                }],
+                'films': {
+                    'movies': [{
+                        'title': 'Cars',
+                        'id': 0,
+                    }],
+                    'total': 0
+                },
                 'userWatched': [{
                     'title': 'Cars',
                     'id': 0,

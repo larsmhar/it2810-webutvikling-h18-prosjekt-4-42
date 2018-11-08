@@ -9,8 +9,8 @@ class Film extends Component {
 
     componentWillMount() {
         //console.log( this.props.match.params.id );
-        console.log( this.props );
-        console.log( this.props.pageination )
+        // console.log( this.props );
+        // console.log( this.props.pageination )
         this.props.fetchFilms( this.props.user.user.data.user.uid, this.props.pageination.pageination, 18 );
         this.props.fetchFilm( this.props.match.params.id, this.props.user.user.data.user.uid, 0, 1 );
     }
@@ -43,13 +43,13 @@ class Film extends Component {
 	    //console.log( this.props.film );
 	    //console.log( this.props.film.data );
         //console.log( this.props.film.data.films );
-        console.log( this.props.film );
+        console.log( 'yolo', this.props.film );
         console.log( this.props );
         let film;
         if ( this.props.loaded ) {
             console.log( this.props );
 
-            console.log( this.state.liked, !!this.props.film[0]['liked'] );
+            // console.log( this.state.liked, !!this.props.film[0]['liked'] );
             if ( this.state.liked != !!this.props.film[0]['liked'] ) {
                 this.setState( { 'liked': !!this.props.film[0]['liked'] } );
             }
@@ -97,8 +97,8 @@ Film.propTypes = {
 */
 
 const mapStateToProps = state => ( {
-    'film': state.films.item.data.films,
-    'films': state.films.items.data.films,
+    'film': state.films.item.data.films.movies,
+    'films': state.films.items.data.films.movies,
     'userLiked': state.films.items.data.userLiked,
     'userWatched': state.films.items.data.userWatched,
     'loaded': state.films.loaded,

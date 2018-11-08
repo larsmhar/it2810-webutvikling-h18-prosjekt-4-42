@@ -22,15 +22,15 @@ db.run = promisify( db.run );
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema( `
   type Query {
-    films(mid:String, uid:Int!, year:String, title:String, first:Int!, skip:Int!, filterWatched:Int): [Movie]
+    films(mid:String, uid:Int!, year:String, title:String, first:Int!, skip:Int!, filterWatched:Int): Movies
     searchFilms(title:String, year: String, first:Int!, skip:Int!): [Movie]
     user(username:String!): User
     userWatched(uid:Int!): [Movie]
     userLiked(uid:Int!): [Movie]
 },
 type Mutation {
-    updateLiked(mid:String!, uid:Int!): [Movie]
-    updateWatched(mid:String!, uid:Int!): [Movie]
+    updateLiked(mid:String!, uid:Int!): Movies
+    updateWatched(mid:String!, uid:Int!): Movies
 },
 type Movie {
     id: String
@@ -55,6 +55,12 @@ type User {
     uid: Int
     username: String
 }
+
+type Movies {
+    movies: [Movie]
+    total:Int
+    offset:Int
+}
 ` );
 
 const updateLiked = function( args ) {
@@ -68,7 +74,12 @@ const updateLiked = function( args ) {
                             db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                                 .then( function( result ) {
                                     if ( result ) {
-                                        resolve( [result] );
+                                        const newResult = {
+                                            'movies': [result],
+                                            'total': 1,
+                                            'offset': 0
+                                        };
+                                        resolve( newResult );
                                     } else {
                                         reject( new Error( 'Error on updating like' ) );
                                     }
@@ -80,7 +91,12 @@ const updateLiked = function( args ) {
                             db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                                 .then( function( result ) {
                                     if ( result ) {
-                                        resolve( [result] );
+                                        const newResult = {
+                                            'movies': [result],
+                                            'total': 1,
+                                            'offset': 0
+                                        };
+                                        resolve( newResult );
                                     } else {
                                         reject( new Error( 'Movie has no activity / ID not found' ) );
                                     }
@@ -103,7 +119,12 @@ const updateWatched = function( args ) {
                             db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                                 .then( function( result ) {
                                     if ( result ) {
-                                        resolve( [result] );
+                                        const newResult = {
+                                            'movies': [result],
+                                            'total': 1,
+                                            'offset': 0
+                                        };
+                                        resolve( newResult );
                                     } else {
                                         reject( new Error( 'Id not found' ) );
                                     }
@@ -115,7 +136,12 @@ const updateWatched = function( args ) {
                             db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                                 .then( function( result ) {
                                     if ( result ) {
-                                        resolve( [result] );
+                                        const newResult = {
+                                            'movies': [result],
+                                            'total': 1,
+                                            'offset': 0
+                                        };
+                                        resolve( newResult );
                                     } else {
                                         reject( new Error( 'Id not found' ) );
                                     }
@@ -127,16 +153,21 @@ const updateWatched = function( args ) {
 };
 const getFilms = function( args ) {
     const searchString = args.filterWatched ? 'SELECT * FROM movie WHERE id NOT IN (SELECT mid FROM userActions WHERE uid = ' + args.uid + ' and watched = 1)' : 'SELECT * FROM movie';
-    
+
     console.log( args );
-    if ( args.mid && args.uid ) 
+    if ( args.mid && args.uid )
         return new Promise( ( resolve, reject ) => {
             // Sqlite doesn't support full outer join >:(
             // So we need hacky solution
             // http://www.sqlitetutorial.net/sqlite-full-outer-join/
             db.get( 'SELECT * FROM movie LEFT JOIN userActions ON (userActions.mid = movie.id) WHERE movie.id = $mid1 and userActions.uid = $uid UNION SELECT *, NULL, NULL, NULL, NULL FROM movie  where movie.id = $mid2 ORDER BY uid DESC', args.mid, args.uid, args.mid ).then( function( result ) {
                 if ( result ) {
-                    resolve( [result] );
+                    const newResult = {
+                        'movies': [result],
+                        'total': 1,
+                        'offset': 0
+                    };
+                    resolve( newResult );
                 } else {
                     reject( new Error( 'Id not found' ) );
                 }
@@ -148,7 +179,14 @@ const getFilms = function( args ) {
             if ( result ) {
                 result = args.title ? result.filter( movie => movie.title.toLowerCase().includes( args.title.toLowerCase() ) ) : result;
                 result = args.year ? result.filter( movie => movie.year >= args.year ) : result;
-                resolve( result.slice( args.skip, args.skip + args.first ) );
+                const length = result.length;
+                const newResult = {
+                    'movies': result.slice( args.skip, args.skip + args.first ),
+                    'total': length,
+                    'offset': args.skip
+                };
+                // resolve( result.slice( args.skip, args.skip + args.first ) );
+                resolve( newResult );
             } else {
                 reject( new Error( 'Id not found' ) );
             }

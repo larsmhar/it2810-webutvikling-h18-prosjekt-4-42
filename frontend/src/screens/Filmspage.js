@@ -11,12 +11,13 @@ class Filmspage extends Component {
         super( props );
         this.state = {
             'searchString': '',
-            'filterWatched': false,
+            'filterWatched': 0,
             'year': '1900',
         };
         this.onHandleSubmit = this.onHandleSubmit.bind( this );
         this.onSearchChange = this.onSearchChange.bind( this );
         this.onYearChange = this.onYearChange.bind( this );
+        this.onFilterChange= this.onFilterChange.bind( this );
     }
 
     onHandleSubmit( e ) {
@@ -52,18 +53,17 @@ class Filmspage extends Component {
     }
 
     render() {
-        console.log( this.props.pageination )
+        console.log( this.state.filterWatched )
         return (
             <div style={{'display':'flex', 'flexDirection':'column', 'justifyContent':'center'}}>
                 <div style={{'display':'flex', 'justifyContent':'center', 'padding':'10px'}}>
                     <form onSubmit={ this.onHandleSubmit }>
                         <i className="material-icons md-42 userIcon">search</i>
-                        <input className="userField" type="text" value={ this.state.searchString } placeholder="search" onInput={ this.onSearchChange } autoFocus></input>
-                        <input type="checkbox" value={ this.state.filterWatched } onChange={ this.onFilterChange.bind(this) } />
-                        <input className="userField" type="text" value={ this.state.searchString } placeholder="search" onInput={ this.onSearchChange } autofocus></input>
+                        <input className="userField" type="text" value={ this.state.searchString } placeholder="search" onChange={ this.onSearchChange } autoFocus></input>
+                        <input type="checkbox" value={ this.state.filterWatched ? true : false } onChange={ this.onFilterChange } />
                         <input className="loginBtn" type="submit" value="search" /> <br/>
-                        <label for="year"> Show only movies released after: </label>
-                        <input className="yearField" type="number" id="year" name="year" onInput={this.onYearChange} value={this.state.year} min="1900" max={( new Date() ).getFullYear()} />
+                        <label htmlFor="year"> Show only movies released after: </label>
+                        <input className="yearField" type="number" id="year" name="year" onChange={this.onYearChange} value={this.state.year} min="1900" max={( new Date() ).getFullYear()} />
                     </form>
                 </div>
                 <div className="App-container" style={{'marginTop':'1em'}}>

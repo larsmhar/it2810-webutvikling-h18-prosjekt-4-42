@@ -97,7 +97,7 @@ Film.propTypes = {
 */
 
 const mapStateToProps = state => ( {
-    'film': state.films.item.data.films,
+    'film': state.films.item.data.films.movies,
     'films': state.films.items.data.films,
     'userLiked': state.films.items.data.userLiked,
     'userWatched': state.films.items.data.userWatched,

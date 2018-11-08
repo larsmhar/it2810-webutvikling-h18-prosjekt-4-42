@@ -22,7 +22,7 @@ db.run = promisify( db.run );
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema( `
   type Query {
-    films(mid:String, uid:Int!, year:String, title:String, first:Int!, skip:Int!, filterWatched:Int): Movies
+    films(mid:String, uid:Int!, year:String, title:String, first:Int!, skip:Int!, filterWatched:Int, sort:String, desc:Int): Movies
     searchFilms(title:String, year: String, first:Int!, skip:Int!): [Movie]
     user(username:String!): User
     userWatched(uid:Int!): [Movie]
@@ -62,6 +62,34 @@ type Movies {
     offset:Int
 }
 ` );
+
+const sortFilms = function ( a, b, compare, desc = true ) {
+    switch ( compare ) {
+    case 'year': {
+        const yearA = isNaN( a.released[0] ) ? a.year : a.released;
+        const yearB = isNaN( b.released[0] ) ? b.year : b.released;
+        if ( ( new Date( yearA ) ) < ( new Date( yearB ) ) ) {
+            return desc ? 1 : -1;
+        } else if ( ( new Date( yearA ) ) > ( new Date( yearB ) ) ) {
+            return desc ? -1 : 1;
+        } else {
+            return 0;
+        }
+    }
+    case 'runtime': {
+        const re = /\d+/;
+        const runtimeA = parseInt( re.exec( a.runtime )[0] );
+        const runtimeB = parseInt( re.exec( b.runtime )[0] );
+        if ( runtimeA < runtimeB ) {
+            return desc ? 1 : -1;
+        } else if ( runtimeA > runtimeB ) {
+            return desc ? -1 : 1;
+        } else {
+            return 0;
+        }
+    }
+    }
+};
 
 const updateLiked = function( args ) {
     console.log( args );
@@ -180,6 +208,9 @@ const getFilms = function( args ) {
                 result = args.title ? result.filter( movie => movie.title.toLowerCase().includes( args.title.toLowerCase() ) ) : result;
                 result = args.year ? result.filter( movie => movie.year >= args.year ) : result;
                 const length = result.length;
+                if ( args.sort ) {
+                    result = result.sort( ( a, b ) => sortFilms( a, b, args.sort, args.desc ) );
+                }
                 const newResult = {
                     'movies': result.slice( args.skip, args.skip + args.first ),
                     'total': length,

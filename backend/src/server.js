@@ -29,8 +29,8 @@ const schema = buildSchema( `
     userLiked(uid:Int!): [Movie]
 },
 type Mutation {
-    updateLiked(mid:String!, uid:Int!): [Movie]
-    updateWatched(mid:String!, uid:Int!): [Movie]
+    updateLiked(mid:String!, uid:Int!): Movies
+    updateWatched(mid:String!, uid:Int!): Movies
 },
 type Movie {
     id: String
@@ -74,7 +74,12 @@ const updateLiked = function( args ) {
                             db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                                 .then( function( result ) {
                                     if ( result ) {
-                                        resolve( [result] );
+                                        const newResult = {
+                                            'movies': [result],
+                                            'total': 1,
+                                            'offset': 0
+                                        };
+                                        resolve( newResult );
                                     } else {
                                         reject( new Error( 'Error on updating like' ) );
                                     }
@@ -86,7 +91,12 @@ const updateLiked = function( args ) {
                             db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                                 .then( function( result ) {
                                     if ( result ) {
-                                        resolve( [result] );
+                                        const newResult = {
+                                            'movies': [result],
+                                            'total': 1,
+                                            'offset': 0
+                                        };
+                                        resolve( newResult );
                                     } else {
                                         reject( new Error( 'Movie has no activity / ID not found' ) );
                                     }
@@ -109,7 +119,12 @@ const updateWatched = function( args ) {
                             db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                                 .then( function( result ) {
                                     if ( result ) {
-                                        resolve( [result] );
+                                        const newResult = {
+                                            'movies': [result],
+                                            'total': 1,
+                                            'offset': 0
+                                        };
+                                        resolve( newResult );
                                     } else {
                                         reject( new Error( 'Id not found' ) );
                                     }
@@ -121,7 +136,12 @@ const updateWatched = function( args ) {
                             db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                                 .then( function( result ) {
                                     if ( result ) {
-                                        resolve( [result] );
+                                        const newResult = {
+                                            'movies': [result],
+                                            'total': 1,
+                                            'offset': 0
+                                        };
+                                        resolve( newResult );
                                     } else {
                                         reject( new Error( 'Id not found' ) );
                                     }

@@ -22,12 +22,13 @@ class PageButtons extends Component {
     }
     render() {
         const page = this.props.pageination.pageination;
-        const btnBck = page > 0 ? <i id="btnBck" className="material-icons" onClick={this.buttonHandler}>arrow_back_ios</i> : null;
-        const btnFwd = page < ( 250 / 18 ) - 1 ? < i id="btnFwd" className="material-icons" onClick={this.buttonHandler}>arrow_forward_ios</i> : null;
+        const total = this.props.total;
+        const btnBck = page > 0 ? <i id="btnBck" className="material-icons" onClick={this.buttonHandler}>arrow_back_ios</i> : <i id="btnBck" className="material-icons"  style={{'filter':'opacity(0)'}}>bug_report</i>;
+        const btnFwd = page < ( total / 18 ) - 1 ? < i id="btnFwd" className="material-icons" onClick={this.buttonHandler}>arrow_forward_ios</i> : < i id="btnFwd" className="material-icons" style={{'filter':'opacity(0)'}}>bug_report</i> ;
         return (
             <div className="pageButtons">
                 {btnBck}
-                Page {page + 1}
+                Page {page + 1} of {Math.ceil(total / 18 )}
                 {btnFwd}
             </div>
         );
@@ -35,6 +36,7 @@ class PageButtons extends Component {
 }
 
 const mapStateToProps = state => ( {
+    'total': state.films.items.data.films.total,
     'pageination': state.pageination,
     'user': state.user,
     'searchString': state.films.searchString,

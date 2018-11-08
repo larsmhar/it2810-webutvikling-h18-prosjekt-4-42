@@ -21,8 +21,14 @@ class Items extends Component {
     }
 
     render() {
+<<<<<<< HEAD
         const films = this.props.films.data.films.map( film =>
             <Link to={'/films/' + film.id} key={film.id}>
+=======
+        console.log(this.props.films.data);
+        const films = this.props.films.data.films.movies.map( film =>
+            <Link to={'/films/' + film.id}>
+>>>>>>> master
                 <div id={film.id} className={this.generateClass( film.id )} >
                     <div className="hiddenTitle">{film.title}</div>
                 	<img id={'img' + film.id} src={film.poster} alt="poster"/>

@@ -6,7 +6,7 @@ export const fetchFilms = ( uid, skip, first, title = '', year = '' ) => dispatc
     fetch( IP, {
 	  'method': 'POST',
 	    'headers': { 'Content-Type': 'application/json' },
-		  'body': JSON.stringify( { 'query': '{ films(title:"' + title + '" year:"' + year + '" first: ' + first + ' skip: ' + skip + 'uid:' + uid + ' ) { id title  poster } userWatched(uid: ' + uid + ') {id watched} userLiked(uid: ' + uid + ') {id liked} }' } ),
+		  'body': JSON.stringify( { 'query': '{ films( title:"' + title + '" year:"' + year + '" first: ' + first + ' skip: ' + skip + 'uid:' + uid + ' ) { movies { id title  poster } total } userWatched(uid: ' + uid + ') {id watched} userLiked(uid: ' + uid + ') {id liked} }' } ),
 		  } )
         .then( res => {
             return res.json();
@@ -47,7 +47,7 @@ export const fetchFilm = ( mid, uid, first, skip ) => dispatch => {
     fetch( IP, {
 	  'method': 'POST',
 	    'headers': { 'Content-Type': 'application/json' },
-		  'body': JSON.stringify( { 'query': '{ films (uid: ' + uid + ' mid: "' + mid + '" first: ' + first + ' skip: ' + skip + ') { id title poster year director plot actors liked watched } }' } ),
+		  'body': JSON.stringify( { 'query': '{ films (uid: ' + uid + ' mid: "' + mid + '" first: ' + first + ' skip: ' + skip + ') { movies { id title poster year director plot actors liked watched } } }' } ),
 		  } )
         .then( res => res.json() )
         .then( film => dispatch( {
@@ -64,7 +64,7 @@ export const updateLiked = ( mid, uid ) => dispatch => {
     fetch( IP, {
 	  'method': 'POST',
 	    'headers': { 'Content-Type': 'application/json' },
-		  'body': JSON.stringify( { 'query': ' mutation {updateLiked (mid: "' + mid + '" uid:' + uid + ') { id title poster year director plot actors liked watched} }' } ),
+		  'body': JSON.stringify( { 'query': ' mutation {updateLiked (mid: "' + mid + '" uid:' + uid + ') {movies{ id title poster year director plot actors liked watched}} }' } ),
 		  } )
         .then( res => res.json() )
         .then( film => dispatch( {
@@ -81,7 +81,7 @@ export const updateWatched = ( mid, uid ) => dispatch => {
     fetch( IP, {
 	  'method': 'POST',
 	    'headers': { 'Content-Type': 'application/json' },
-		  'body': JSON.stringify( { 'query': ' mutation {updateWatched (mid: "' + mid + '" uid:' + uid + ') { id title poster year director plot actors liked watched} }' } ),
+		  'body': JSON.stringify( { 'query': ' mutation {updateWatched (mid: "' + mid + '" uid:' + uid + ') {movies{ id title poster year director plot actors liked watched}} }' } ),
     } )
         .then( res => res.json() )
         .then( film => dispatch( {

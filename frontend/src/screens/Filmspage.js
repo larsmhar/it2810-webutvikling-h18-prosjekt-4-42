@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Items from '../components/Items';
 import PageButtons from '../components/PageButtons';
-import { searchTitle, fetchFilms, filterWatched, filterYear } from '../actions/filmActions';
+import { searchTitle, fetchFilms, filterWatched, filterYear, sortChanged, searchFilterChanged } from '../actions/filmActions';
 import { timingSafeEqual } from 'crypto';
 import './Filmspage.css';
 
@@ -13,19 +13,28 @@ class Filmspage extends Component {
             'searchString': '',
             'filterWatched': 0,
             'year': '1900',
+            'sortMethods': [
+                'rank',
+                'year',
+                'runtime',
+            ],
+            'sortMethod': 'rank'
         };
         this.onHandleSubmit = this.onHandleSubmit.bind( this );
         this.onSearchChange = this.onSearchChange.bind( this );
         this.onYearChange = this.onYearChange.bind( this );
-        this.onFilterChange= this.onFilterChange.bind( this );
+        this.onFilterChange = this.onFilterChange.bind( this );
+        this.onSortChange = this.onSortChange.bind( this );
     }
 
     onHandleSubmit( e ) {
         e.preventDefault();
+        console.log(this.state)
+        this.props.sortChanged( this.state.sortMethod );
         this.props.searchTitle( this.state.searchString );
         this.props.filterWatched( this.state.filterWatched );
         this.props.filterYear( this.state.year );
-        this.props.fetchFilms( this.props.user.user.data.user.uid, 0, 18, this.state.searchString, this.state.year );
+        this.props.fetchFilms( this.props.user.user.data.user.uid, 0, 18, this.state.searchString, this.state.year, this.state.sortMethod, this.state.filterWatched ? 1 : 0 );
     }
 
     onSearchChange( e ) {
@@ -33,27 +42,33 @@ class Filmspage extends Component {
     }
 
     onFilterChange( e ) {
-        console.log(e.target.checked)
+        console.log( e.target.checked )
         this.setState( { 'filterWatched': e.target.checked } );
-    
+
     }
-    
+
     onYearChange( e ) {
         // console.log('year change', typeof e.target.value );
         this.setState( { 'year': e.target.value } );
+    }
+
+    onSortChange( e ) {
+        this.setState( {
+            'sortMethod': e.target.value
+        } );
     }
 
     componentDidMount() {
         console.log( 'searchstring:', this.props.searchString );
         this.setState( { 
             'searchString': this.props.searchString,
-            'filterWatched': this.props.filterWatched,
-            'year': this.props.year
-         } );
+            'filterWatched': this.props.filterWatchedProp,
+            'year': this.props.year,
+            'sortMethod': this.props.sortMethod,
+        } );
     }
 
     render() {
-        console.log( this.state.filterWatched )
         return (
             <div style={{'display':'flex', 'flexDirection':'column', 'justifyContent':'center'}}>
                 <div style={{'display':'flex', 'justifyContent':'center', 'padding':'10px'}}>
@@ -64,6 +79,12 @@ class Filmspage extends Component {
                         <input className="loginBtn" type="submit" value="search" /> <br/>
                         <label htmlFor="year"> Show only movies released after: </label>
                         <input className="yearField" type="number" id="year" name="year" onChange={this.onYearChange} value={this.state.year} min="1900" max={( new Date() ).getFullYear()} />
+                        <label>Sort by   :
+                            <select defaultValue="rank" value={this.state.sortMethod} onChange={ this.onSortChange }>
+                                {this.state.sortMethods
+                                    .map( ( e, i ) => <option value={e}>{e}</option> ) }
+                            </select>
+                        </label>
                     </form>
                 </div>
                 <div className="App-container" style={{'marginTop':'1em'}}>
@@ -79,9 +100,10 @@ class Filmspage extends Component {
 const mapStateToProps = state => ( {
     'user': state.user,
     'searchString': state.films.searchString,
-    'filterWatched': state.films.filterWatched,
+    'filterWatchedProp': state.films.filterWatched,
+    'sortMethod': state.films.sortMethod,
     'pageination': state.pageination,
     'year': state.films.year,
 } );
 
-export default connect( mapStateToProps, { searchTitle, filterYear, fetchFilms, filterWatched } )( Filmspage );
+export default connect( mapStateToProps, { searchTitle, filterYear, filterWatched, sortChanged, fetchFilms, searchFilterChanged } )( Filmspage );

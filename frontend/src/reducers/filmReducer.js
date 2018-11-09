@@ -1,4 +1,4 @@
-import { FETCH_FILMS, SEARCH_FILM, FETCH_FILM, LOADING, LOADED, UPDATE_LIKED, UPDATE_WATCHED, FILTER_WATCHED, FILTER_YEAR } from '../actions/types';
+import { FETCH_FILMS, SEARCH_FILM, FETCH_FILM, LOADING, LOADED, UPDATE_LIKED, UPDATE_WATCHED, FILTER_WATCHED, FILTER_YEAR, SORT_CHANGED } from '../actions/types';
 
 
 const initialState = {
@@ -20,10 +20,25 @@ export default function( state = initialState, action ) {
             'item': action.payload,
             'loaded': true,
         };
+    case 'NEIN':
+        return {
+            ...state,
+            'searchString': action.payload.searchString,
+            'sortMethod': action.payload.sortMethod,
+            'year': action.payload.year,
+            'filterWatched': action.payload.filterWatched,
+            'loaded': true,
+        };
     case SEARCH_FILM:
         return {
             ...state,
             'searchString': action.payload,
+            'loaded': true,
+        };
+    case SORT_CHANGED:
+        return {
+            ...state,
+            'sortMethod': action.payload,
             'loaded': true,
         };
     case FILTER_WATCHED:

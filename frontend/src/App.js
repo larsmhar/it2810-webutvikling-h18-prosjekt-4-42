@@ -25,7 +25,7 @@ class App extends Component {
         return this.props.user.user.data.user ? <Redirect to={ destination }/> : component;
     }
 
-    checkIfLogin( component, destination = '/' ) {
+    checkIfLogin( component, destination = '/prosjekt4/' ) {
         return this.props.user.user.data.user ? component : <Redirect to={ destination }/>;
     }
 
@@ -36,12 +36,12 @@ class App extends Component {
             <Router>
                 <div className="App">
                     <header className="App-header">
-                        <div> <Link to='/'> Filmlr</Link></div>
+                        <div> <Link to='/prosjekt4/'> Filmlr</Link></div>
                         <button className='loginBtn' onClick={ this.props.logOut }> Log out button </button>
                     </header>
                     {/* Had to set margin-top here, because setting in css didn't work?*/}
                     {/*
-                    <Route exact path="/" render={() =>  
+                    <Route exact path="/" render={() =>
                         !!this.props.user.user.data ?
                             (<Redirect to='films'/>)
                             :
@@ -55,9 +55,9 @@ class App extends Component {
                         <Route path="/films/:id" render={( props ) => this.checkIfLogin( <Film {...props} /> ) }/>
                         */}
                     <Switch>
-                        <Route path="/films/:id" render={( props ) => this.checkIfLogin( <Film {...props} /> ) }/>
-                        <Route path="/films" render={() => this.checkIfLogin( <Filmspage/> ) } />
-                        <Route exact path='/' render={() => this.checkLogin( <Frontpage/>, 'films' ) } />
+                        <Route path="/prosjekt4/films/:id" render={( props ) => this.checkIfLogin( <Film {...props} /> ) }/>
+                        <Route exact path="/prosjekt4/films" render={() => this.checkIfLogin( <Filmspage/> ) } />
+                        <Route exact path='/prosjekt4/' render={() => this.checkLogin( <Frontpage/>, '/prosjekt4/films' ) } />
                         <Route path='*' component={ Error } />
                     </Switch>
                 </div>
@@ -71,4 +71,3 @@ const mapStateToProps = state => ( {
 } );
 
 export default connect( mapStateToProps, { getLocalStorageUser, logOut } )( App );
-

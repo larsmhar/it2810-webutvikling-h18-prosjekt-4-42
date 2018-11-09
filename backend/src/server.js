@@ -35,6 +35,7 @@ type Mutation {
 type Movie {
     id: String
     title: String
+    " The date at which the movie was released"
     released: String
     genre: String
     director: String
@@ -49,6 +50,7 @@ type Movie {
     actors: String
     watched: Int
     liked: Int
+    rank: String
 }
 
 type User {
@@ -194,7 +196,22 @@ const updateWatched = function( args ) {
     } );
 };
 const getFilms = function( args ) {
+    /*
     console.log(args)
+    return new Promise( resolve => {
+        db.all( 'SELECT * FROM movie as a LEFT JOIN userActions ON (userActions.mid = a.id) where uid = $uid1 UNION SELECT  *, NULL, NULL, NULL, NULL FROM movie as b  where b.id not in (SELECT id FROM movie as c LEFT JOIN userActions ON (userActions.mid = c.id) where uid = $uid2)ORDER BY uid DESC ', args.uid, args.uid)
+        .then( result => {
+            console.log(result)
+            const newResult = {
+                'movies': result.slice( args.skip, args.skip + args.first ),
+                'total': result.length,
+                'offset': args.skip
+            };  
+            resolve( newResult );
+        })
+    })
+    */
+
     const searchString = args.filterWatched ? 'SELECT * FROM movie WHERE id NOT IN (SELECT mid FROM userActions WHERE uid = ' + args.uid + ' and watched = 1)' : 'SELECT * FROM movie';
     if ( args.mid && args.uid )
         return new Promise( ( resolve, reject ) => {

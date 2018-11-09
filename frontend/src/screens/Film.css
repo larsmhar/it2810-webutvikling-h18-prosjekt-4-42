@@ -169,7 +169,7 @@ hr {
 
 @media screen and  (max-width: 700px) {
   .container {
-  grid-template-columns: auto min-content auto;
+  grid-template-columns: 1fr 9fr 1fr;
   grid-template-rows: 60% max-content max-content;
   padding-bottom:20px;
 }
@@ -181,6 +181,7 @@ hr {
   .poster{
   grid-column:2;
   grid-row:1;
+  margin:auto;
 }
 
     .rate{

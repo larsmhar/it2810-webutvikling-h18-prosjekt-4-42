@@ -11,7 +11,7 @@ class Items extends Component {
     }
 
     componentWillMount() {
-        this.props.fetchFilms( this.props.user.user.data.user.uid, this.props.pageination.pageination * 18, 18, this.props.searchString, this.props.year );
+        this.props.fetchFilms( this.props.user.user.data.user.uid, this.props.pageination.pageination * 18, 18, this.props.searchString, this.props.year, this.props.sortMethod, this.props.filterWatched );
     }
 
     generateClass( id ) {
@@ -21,8 +21,14 @@ class Items extends Component {
     }
 
     render() {
+<<<<<<< HEAD
+        console.log(this.props.films.data);
+        const films = this.props.films.data.films.movies.map( film =>
+            <Link to={'/films/' + film.id} key={film.id}>
+=======
         const films = this.props.films.data.films.movies.map( film =>
             <Link to={'/prosjekt4/films/' + film.id} key={film.id}>
+>>>>>>> master
                 <div id={film.id} className={this.generateClass( film.id )} >
                     <div className="hiddenTitle">{film.title}</div>
                 	<img id={'img' + film.id} src={film.poster} alt="poster"/>
@@ -39,6 +45,8 @@ class Items extends Component {
 const mapStateToProps = state => ( {
     'films': state.films.items,
     'searchString': state.films.searchString,
+    'sortMethod': state.films.sortMethod,
+    'filterWatched': state.films.filterWatched,
     'year': state.films.year,
     'user': state.user,
     'pageination': state.pageination

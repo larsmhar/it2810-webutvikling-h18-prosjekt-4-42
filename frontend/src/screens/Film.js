@@ -11,7 +11,7 @@ class Film extends Component {
         //console.log( this.props.match.params.id );
         // console.log( this.props );
         // console.log( this.props.pageination )
-        this.props.fetchFilms( this.props.user.user.data.user.uid, this.props.pageination.pageination, 18 );
+        this.props.fetchFilms( this.props.user.user.data.user.uid, this.props.pageination.pageination, 18, this.props.sortMethod, this.props.filterWatched );
         this.props.fetchFilm( this.props.match.params.id, this.props.user.user.data.user.uid, 0, 1 );
     }
 
@@ -102,6 +102,8 @@ const mapStateToProps = state => ( {
     'userLiked': state.films.items.data.userLiked,
     'userWatched': state.films.items.data.userWatched,
     'loaded': state.films.loaded,
+    'sortMethod': state.films.sortMethod,
+    'filterWatched': state.films.filterWatched,
     'user': state.user,
     'pageination': state.pageination
 } );

@@ -90,6 +90,20 @@ const sortFilms = function ( a, b, compare, desc = true ) {
             return 0;
         }
     }
+    default: {
+        // Think before saving things as strings next time please
+        // Here desc means asc because we are idiots
+        desc = !desc;
+        const rankA = parseInt( a.rank );
+        const rankB = parseInt( b.rank );
+        if ( rankA < rankB ) {
+            return desc ? 1 : -1;
+        }
+        else if ( a.rank === b.rank ) {
+            return 0;
+        }
+        return desc ? -1 : 1;
+    }
     }
 };
 

@@ -13,3 +13,4 @@ export const LOG_OUT = 'LOG_OUT';
 export const FILTER_WATCHED = 'FILTER_WATCHED';
 export const FILTER_YEAR = 'FILTER_YEAR';
 export const SORT_CHANGED = 'SORT_CHANGED';
+export const ADD_USER = 'ADD_USER';

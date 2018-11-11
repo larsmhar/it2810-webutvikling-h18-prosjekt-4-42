@@ -20,17 +20,19 @@ db.all = promisify( db.all );
 db.run = promisify( db.run );
 
 // Construct a schema, using GraphQL schema language
+// These are deprecated and not used anymore
+// userWatched(uid:Int!): [Movie] 
+// userLiked(uid:Int!): [Movie]
 const schema = buildSchema( `
   type Query {
     films(mid:String, uid:Int!, year:String, title:String, first:Int!, skip:Int!, filterWatched:Int, sort:String, desc:Int): Movies
     searchFilms(title:String, year: String, first:Int!, skip:Int!): [Movie]
     user(username:String!): User
-    userWatched(uid:Int!): [Movie]
-    userLiked(uid:Int!): [Movie]
 },
 type Mutation {
     updateLiked(mid:String!, uid:Int!): Movies
     updateWatched(mid:String!, uid:Int!): Movies
+    addUser(username:String!): User
 },
 type Movie {
     id: String
@@ -105,6 +107,23 @@ const sortFilms = function ( a, b, compare, desc = true ) {
         return desc ? -1 : 1;
     }
     }
+};
+
+const addUser = function( args ) {
+    console.log("Adding user", args)
+    return new Promise( ( resolve, reject ) => {
+        db.run( 'INSERT INTO user (username) VALUES ($username)', args.username )
+            .then( 
+                db.get( 'SELECT * FROM user WHERE username = $username', args.username )
+                    .then( ( result ) => {
+                        if ( result ) {
+                            resolve( result );
+                        } else {
+                            reject( new Error( 'User couldn\'t be created' ) );
+                        }
+                    } )
+            );
+    } );
 };
 
 const updateLiked = function( args ) {
@@ -195,6 +214,7 @@ const updateWatched = function( args ) {
             } );
     } );
 };
+
 const getFilms = function( args ) {
     /*
     console.log(args)
@@ -327,6 +347,7 @@ const root = {
     'userLiked': getLiked,
     'updateLiked': updateLiked,
     'updateWatched': updateWatched,
+    'addUser': addUser,
 };
 
 

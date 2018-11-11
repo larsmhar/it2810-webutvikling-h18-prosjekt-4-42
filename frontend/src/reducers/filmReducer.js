@@ -20,15 +20,6 @@ export default function( state = initialState, action ) {
             'item': action.payload,
             'loaded': true,
         };
-    case 'NEIN':
-        return {
-            ...state,
-            'searchString': action.payload.searchString,
-            'sortMethod': action.payload.sortMethod,
-            'year': action.payload.year,
-            'filterWatched': action.payload.filterWatched,
-            'loaded': true,
-        };
     case SEARCH_FILM:
         return {
             ...state,

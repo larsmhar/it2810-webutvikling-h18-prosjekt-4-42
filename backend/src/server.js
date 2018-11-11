@@ -212,7 +212,13 @@ const getFilms = function( args ) {
     })
     */
 
-    const searchString = args.filterWatched ? 'SELECT * FROM movie WHERE id NOT IN (SELECT mid FROM userActions WHERE uid = ' + args.uid + ' and watched = 1)' : 'SELECT * FROM movie';
+    // This line is very very long
+    const searchString = args.filterWatched ? 'SELECT * FROM movie as a LEFT JOIN userActions ON (userActions.mid = a.id) where uid = ' 
+    + args.uid + ' and watched = 0 UNION SELECT  *, NULL, NULL, NULL, NULL FROM movie as b  where b.id not in (SELECT id FROM movie as c LEFT JOIN userActions ON (userActions.mid = c.id) where uid = '
+    + args.uid + ')'
+        : 'SELECT * FROM movie as a LEFT JOIN userActions ON (userActions.mid = a.id) where uid = ' + args.uid
+            + ' UNION SELECT  *, NULL, NULL, NULL, NULL FROM movie as b  where b.id not in (SELECT id FROM movie as c LEFT JOIN userActions ON (userActions.mid = c.id) where uid = '
+            + args.uid + ')ORDER BY uid DESC ';
     if ( args.mid && args.uid )
         return new Promise( ( resolve, reject ) => {
             // Sqlite doesn't support full outer join >:(
@@ -238,9 +244,7 @@ const getFilms = function( args ) {
                 result = args.title ? result.filter( movie => movie.title.toLowerCase().includes( args.title.toLowerCase() ) ) : result;
                 result = args.year ? result.filter( movie => movie.year >= args.year ) : result;
                 const length = result.length;
-                if ( args.sort ) {
-                    result = result.sort( ( a, b ) => sortFilms( a, b, args.sort, args.desc ) );
-                }
+                result = result.sort( ( a, b ) => sortFilms( a, b, args.sort, args.desc ) );
                 const newResult = {
                     'movies': result.slice( args.skip, args.skip + args.first ),
                     'total': length,

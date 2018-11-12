@@ -34,7 +34,7 @@ class Login extends Component {
     render() {
         let error;
         if ( 'errors' in this.props.user.user ) {
-            error = <div><Errors errors={this.props.user.user.errors} /> 
+            error = <div><Errors errors={this.props.user.user.errors} />
                 <input className="loginBtn" type="submit" value="Register user" onClick={ this.addUser.bind( this ) }/></div>;
         }
         return (

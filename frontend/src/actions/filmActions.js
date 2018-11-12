@@ -2,14 +2,14 @@ import { FETCH_FILMS, FETCH_FILM, SEARCH_FILM, LOADING, LOADED, UPDATE_LIKED, UP
 import { IP } from './constants.js';
 
 export const fetchFilms = ( uid, skip, first, title = '', year = '', sortMethod = 'rank', filterWatched = 0 ) => dispatch => {
-    console.log(filterWatched)
-    console.log("Sortmethod in getchfilms:", sortMethod)
+    console.log( filterWatched );
+    console.log( 'Sortmethod in getchfilms:', sortMethod );
     dispatch( { 'type': LOADING} );
     fetch( IP, {
 	  'method': 'POST',
 	    'headers': { 'Content-Type': 'application/json' },
-          'body': JSON.stringify( { 'query':
-            '{ films( title:"' + title + '" year:"' + year + '" first: ' + first + ' skip: ' + skip + 'uid:' + uid + ' ' + 'sort: "' + sortMethod + '" ' + ' filterWatched: ' + filterWatched + ' )' 
+        'body': JSON.stringify( { 'query':
+            '{ films( title:"' + title + '" year:"' + year + '" first: ' + first + ' skip: ' + skip + 'uid:' + uid + ' ' + 'sort: "' + sortMethod + '" ' + ' filterWatched: ' + filterWatched + ' )'
             + '{ movies { id title  poster watched liked } total } }' } ),
 		  } )
         .then( res => {
@@ -33,7 +33,7 @@ export const searchFilterChanged = ( sortMethod, searchString, filterWatched, ye
         }
 
     } );
-}
+};
 
 export const searchTitle = ( searchString ) => dispatch => {
     dispatch( {

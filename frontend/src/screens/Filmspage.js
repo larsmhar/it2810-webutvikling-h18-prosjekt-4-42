@@ -29,7 +29,7 @@ class Filmspage extends Component {
 
     onHandleSubmit( e ) {
         e.preventDefault();
-        console.log(this.state)
+        console.log( this.state );
         this.props.sortChanged( this.state.sortMethod );
         this.props.searchTitle( this.state.searchString );
         this.props.filterWatched( this.state.filterWatched );
@@ -42,7 +42,7 @@ class Filmspage extends Component {
     }
 
     onFilterChange( e ) {
-        console.log( e.target.checked )
+        console.log( e.target.checked );
         this.setState( { 'filterWatched': e.target.checked } );
 
     }
@@ -60,7 +60,7 @@ class Filmspage extends Component {
 
     componentDidMount() {
         console.log( 'searchstring:', this.props.searchString );
-        this.setState( { 
+        this.setState( {
             'searchString': this.props.searchString,
             'filterWatched': this.props.filterWatchedProp,
             'year': this.props.year,

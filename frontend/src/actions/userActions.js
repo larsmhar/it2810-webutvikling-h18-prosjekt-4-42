@@ -47,5 +47,5 @@ export const logOut = () => dispatch => {
                 'user': null
             }
         }
-    })
-}
+    } );
+};

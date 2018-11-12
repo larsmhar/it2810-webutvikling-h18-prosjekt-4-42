@@ -45,7 +45,7 @@ export default function( state = initialState, action ) {
             'loaded': true,
         };
     case UPDATE_LIKED:
-        console.log('updateLiked', action.payload)
+        console.log( 'updateLiked', action.payload );
         return {
             ...state,
             'item':{'data':{'films':action.payload.data.updateLiked}},

@@ -21,7 +21,7 @@ db.run = promisify( db.run );
 
 // Construct a schema, using GraphQL schema language
 // These are deprecated and not used anymore
-// userWatched(uid:Int!): [Movie] 
+// userWatched(uid:Int!): [Movie]
 // userLiked(uid:Int!): [Movie]
 const schema = buildSchema( `
   type Query {
@@ -100,8 +100,7 @@ const sortFilms = function ( a, b, compare, desc = true ) {
         const rankB = parseInt( b.rank );
         if ( rankA < rankB ) {
             return desc ? 1 : -1;
-        }
-        else if ( a.rank === b.rank ) {
+        } else if ( a.rank === b.rank ) {
             return 0;
         }
         return desc ? -1 : 1;
@@ -110,10 +109,10 @@ const sortFilms = function ( a, b, compare, desc = true ) {
 };
 
 const addUser = function( args ) {
-    console.log("Adding user", args)
+    console.log( 'Adding user', args );
     return new Promise( ( resolve, reject ) => {
         db.run( 'INSERT INTO user (username) VALUES ($username)', args.username )
-            .then( 
+            .then(
                 db.get( 'SELECT * FROM user WHERE username = $username', args.username )
                     .then( ( result ) => {
                         if ( result ) {
@@ -226,24 +225,24 @@ const getFilms = function( args ) {
                 'movies': result.slice( args.skip, args.skip + args.first ),
                 'total': result.length,
                 'offset': args.skip
-            };  
+            };
             resolve( newResult );
         })
     })
     */
 
     // This line is very very long
-    const searchString = args.filterWatched ? 'SELECT * FROM movie as a LEFT JOIN userActions ON (userActions.mid = a.id) where uid = ' 
+    const searchString = args.filterWatched ? 'SELECT * FROM movie as a LEFT JOIN userActions ON (userActions.mid = a.id) where uid = '
     + args.uid + ' and watched = 0 UNION SELECT  *, NULL, NULL, NULL, NULL FROM movie as b  where b.id not in (SELECT id FROM movie as c LEFT JOIN userActions ON (userActions.mid = c.id) where uid = '
     + args.uid + ')'
         : 'SELECT * FROM movie as a LEFT JOIN userActions ON (userActions.mid = a.id) where uid = ' + args.uid
             + ' UNION SELECT  *, NULL, NULL, NULL, NULL FROM movie as b  where b.id not in (SELECT id FROM movie as c LEFT JOIN userActions ON (userActions.mid = c.id) where uid = '
             + args.uid + ')ORDER BY uid DESC ';
-    if ( args.mid && args.uid )
+    if ( args.mid && args.uid ) {
         return new Promise( ( resolve, reject ) => {
-            // Sqlite doesn't support full outer join >:(
-            // So we need hacky solution
-            // http://www.sqlitetutorial.net/sqlite-full-outer-join/
+        // Sqlite doesn't support full outer join >:(
+        // So we need hacky solution
+        // http://www.sqlitetutorial.net/sqlite-full-outer-join/
             db.get( 'SELECT * FROM movie LEFT JOIN userActions ON (userActions.mid = movie.id) WHERE movie.id = $mid1 and userActions.uid = $uid UNION SELECT *, NULL, NULL, NULL, NULL FROM movie  where movie.id = $mid2 ORDER BY uid DESC', args.mid, args.uid, args.mid ).then( function( result ) {
                 if ( result ) {
                     const newResult = {
@@ -258,6 +257,7 @@ const getFilms = function( args ) {
 
             } );
         } );
+    }
     return new Promise( ( resolve, reject ) => {
         db.all( searchString ).then( function( result ) {
             if ( result ) {

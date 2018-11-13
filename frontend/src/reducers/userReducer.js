@@ -1,4 +1,4 @@
-import { LOADING, LOADED, GET_USER, LOCAL_STORAGE_USER, LOG_OUT } from '../actions/types';
+import { LOADING, LOADED, GET_USER, LOCAL_STORAGE_USER, LOG_OUT, ADD_USER } from '../actions/types';
 
 const initialState = {
     'items': [],
@@ -7,9 +7,8 @@ const initialState = {
 export default function( state = initialState, action ) {
     switch ( action.type ) {
     case GET_USER:
-        console.log( 'GET_USER', action.payload );
         if ( !action.payload.errors ) {
-            window.localStorage.setItem( 'user', JSON.stringify( action.payload ) )
+            window.localStorage.setItem( 'user', JSON.stringify( action.payload ) );
         }
         return {
             ...state,
@@ -20,6 +19,11 @@ export default function( state = initialState, action ) {
         return {
             ...state,
             'user': action.payload,
+        };
+    case ADD_USER:
+        return {
+            ...state,
+            'addedUser': action.payload,
         };
     case LOG_OUT:
         window.localStorage.setItem( 'user', JSON.stringify( action.payload ) );

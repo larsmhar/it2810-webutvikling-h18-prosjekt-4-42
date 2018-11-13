@@ -13,11 +13,11 @@ The website created for this project is a database that allows user to mark movi
 
 The first page a user will see is the login page, where for simplicity's sake we only use usernames.
 
-![Login](readme_img/login.png)
+![Login](readme_img/login.PNG)
 
 After loging in, the user will be presented with the front page, showing the list of movies in our database ranked in order of their IMDb rating.
 
-![Front page](readme_img/frontpage.png)
+![Front page](readme_img/frontpage.PNG)
 
 Here, watched and liked movies will be visually reflected in the movie posters by either being darkened or having a heart in the lover left corner respectively.
 

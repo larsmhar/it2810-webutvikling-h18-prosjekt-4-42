@@ -8,7 +8,9 @@ export const fetchFilms = ( uid, skip, first, title = '', year = '', sortMethod 
     fetch( IP, {
 	  'method': 'POST',
 	    'headers': { 'Content-Type': 'application/json' },
-		  'body': JSON.stringify( { 'query': '{ films( title:"' + title + '" year:"' + year + '" first: ' + first + ' skip: ' + skip + 'uid:' + uid + ' ' + 'sort: "' + sortMethod + '" ' + ' filterWatched: ' + filterWatched + ' ) { movies { id title  poster } total } userWatched(uid: ' + uid + ') {id watched} userLiked(uid: ' + uid + ') {id liked} }' } ),
+          'body': JSON.stringify( { 'query':
+            '{ films( title:"' + title + '" year:"' + year + '" first: ' + first + ' skip: ' + skip + 'uid:' + uid + ' ' + 'sort: "' + sortMethod + '" ' + ' filterWatched: ' + filterWatched + ' )' 
+            + '{ movies { id title  poster watched liked } total } }' } ),
 		  } )
         .then( res => {
             return res.json();

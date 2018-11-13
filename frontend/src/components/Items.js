@@ -14,16 +14,16 @@ class Items extends Component {
         this.props.fetchFilms( this.props.user.user.data.user.uid, this.props.pageination.pageination * 18, 18, this.props.searchString, this.props.year, this.props.sortMethod, this.props.filterWatched );
     }
 
-    generateClass( id ) {
+    generateClass( film ) {
         let divClass = 'Item-container';
-        divClass += this.props.films.data.userWatched.filter( item => item.id == id ).filter( item => !!item.watched ).length > 0 ? ' watched' : '';
-        return divClass += this.props.films.data.userLiked.filter( item => item.id == id ).filter( item => !!item.liked ).length > 0 ? ' liked' : '';
+        divClass += film.watched ? ' watched' : '';
+        return divClass += film.liked ? ' liked' : '';
     }
 
     render() {
         const films = this.props.films.data.films.movies.map( film =>
             <Link to={'/prosjekt4/films/' + film.id} key={film.id}>
-                <div id={film.id} className={this.generateClass( film.id )} >
+                <div id={film.id} className={ this.generateClass( film ) } >
                     <div className="hiddenTitle">{film.title}</div>
                 	<img id={'img' + film.id} src={film.poster} alt="poster"/>
                 </div>

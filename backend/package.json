@@ -24,7 +24,8 @@
     "parser": "babel-eslint",
     "env": {
       "node": true,
-      "es6": true
+      "es6": true,
+      "jest": true
     },
     "extends": "eslint:recommended",
     "rules": {
@@ -96,8 +97,11 @@
   "devDependencies": {
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
+    "babel-core": "^7.0.0-bridge.0",
     "@babel/preset-env": "^7.1.0",
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.7.0"
+    "eslint": "^5.7.0",
+    "jest": "^23.6.0",
+    "jest-cli": "^23.6.0"
   }
 }

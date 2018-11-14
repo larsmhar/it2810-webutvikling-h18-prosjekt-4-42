@@ -75,12 +75,14 @@ class Filmspage extends Component {
                     <form onSubmit={ this.onHandleSubmit }>
                         <i className="material-icons md-42 userIcon">search</i>
                         <input className="userField" type="text" value={ this.state.searchString } placeholder="search" onChange={ this.onSearchChange } autoFocus></input>
-                        <input type="checkbox" value={ this.state.filterWatched ? true : false } onChange={ this.onFilterChange } />
                         <input className="loginBtn" type="submit" value="search" /> <br/>
+                        <label> Hide watched:
+                            <input type="checkbox" value={ this.state.filterWatched ? true : false } onChange={ this.onFilterChange } />
+                        </label> <br/>
                         <label htmlFor="year"> Show only movies released after: </label>
-                        <input className="yearField" type="number" id="year" name="year" onChange={this.onYearChange} value={this.state.year} min="1900" max={( new Date() ).getFullYear()} />
-                        <label>Sort by   :
-                            <select defaultValue="rank" value={this.state.sortMethod} onChange={ this.onSortChange }>
+                        <input className="yearField" type="number" id="year" name="year" onChange={this.onYearChange} value={this.state.year} min="1900" max={( new Date() ).getFullYear()} /> <br/>
+                        <label>Sort by:
+                            <select className="yearField" style={{'backgroundColor':'#102027'}} defaultValue="rank" value={this.state.sortMethod} onChange={ this.onSortChange }>
                                 {this.state.sortMethods
                                     .map( ( e, i ) => <option value={e}>{e}</option> ) }
                             </select>

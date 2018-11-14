@@ -117,6 +117,62 @@ describe( 'Test schema and queries', ()=> {
         // console.log( responseData );
         expect( Object.keys( responseData ) ).toEqual( ['errors'] );
         expect( responseData.errors[0].message ).toMatch( 'Cannot query field' );
-        expect( 1 ).toBe( 1 );
+    } );
+
+    test( 'Expect error if query does not contain uid', async () => {
+        const response = {
+            'setHeader': jest.fn(),
+            'end': jest.fn(),
+            'json': jest.fn(),
+        };
+
+        const request = {
+            'method': 'POST',
+            'headers': {},
+            'body': {'query':'query{ films (first:3, skip:0) { movies { title released runtime } total offset}}'}
+        };
+        await middleware( request, response );
+        const responseData = response.json.mock.calls[0][0];
+        // console.log( responseData );
+        expect( Object.keys( responseData ) ).toEqual( ['errors'] );
+        expect( responseData.errors[0].message ).toMatch( 'argument "uid" of type "Int!" is required' );
+    } );
+
+    test( 'Expect error if query does not contain pagination argument', async () => {
+        const response = {
+            'setHeader': jest.fn(),
+            'end': jest.fn(),
+            'json': jest.fn(),
+        };
+
+        const request = {
+            'method': 'POST',
+            'headers': {},
+            'body': {'query':'query{ films (uid:1, skip:0) { movies { title released runtime } total offset}}'}
+        };
+        await middleware( request, response );
+        const responseData = response.json.mock.calls[0][0];
+        // console.log( responseData );
+        expect( Object.keys( responseData ) ).toEqual( ['errors'] );
+        expect( responseData.errors[0].message ).toMatch( 'argument "first" of type "Int!" is required' );
+    } );
+
+    test( 'Expect error if title argument is not string', async () => {
+        const response = {
+            'setHeader': jest.fn(),
+            'end': jest.fn(),
+            'json': jest.fn(),
+        };
+
+        const request = {
+            'method': 'POST',
+            'headers': {},
+            'body': {'query':'query{films (uid:1, first:3, skip:0, title:mockingbird) { movies { title released runtime } total offset}}'}
+        };
+        await middleware( request, response );
+        const responseData = response.json.mock.calls[0][0];
+        // console.log( responseData );
+        expect( Object.keys( responseData ) ).toEqual( ['errors'] );
+        expect( responseData.errors[0].message ).toMatch( 'Expected type String' );
     } );
 } );

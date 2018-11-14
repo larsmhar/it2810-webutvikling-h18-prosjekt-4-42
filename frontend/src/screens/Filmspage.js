@@ -29,12 +29,13 @@ class Filmspage extends Component {
 
     onHandleSubmit( e ) {
         e.preventDefault();
-        console.log( this.state );
         this.props.sortChanged( this.state.sortMethod );
         this.props.searchTitle( this.state.searchString );
         this.props.filterWatched( this.state.filterWatched );
         this.props.filterYear( this.state.year );
-        this.props.fetchFilms( this.props.user.user.data.user.uid, 0, 18, this.state.searchString, this.state.year, this.state.sortMethod, this.state.filterWatched ? 1 : 0 );
+        this.props.fetchFilms( this.props.user.user.data.user.uid, 0, 18,
+            this.state.searchString, this.state.year,
+            this.state.sortMethod, this.state.filterWatched ? 1 : 0 );
     }
 
     onSearchChange( e ) {
@@ -42,13 +43,11 @@ class Filmspage extends Component {
     }
 
     onFilterChange( e ) {
-        console.log( e.target.checked );
         this.setState( { 'filterWatched': e.target.checked } );
 
     }
 
     onYearChange( e ) {
-        // console.log('year change', typeof e.target.value );
         this.setState( { 'year': e.target.value } );
     }
 
@@ -59,7 +58,6 @@ class Filmspage extends Component {
     }
 
     componentDidMount() {
-        console.log( 'searchstring:', this.props.searchString );
         this.setState( {
             'searchString': this.props.searchString,
             'filterWatched': this.props.filterWatchedProp,
@@ -74,15 +72,37 @@ class Filmspage extends Component {
                 <div style={{'display':'flex', 'justifyContent':'center', 'padding':'10px'}}>
                     <form onSubmit={ this.onHandleSubmit }>
                         <i className="material-icons md-42 userIcon">search</i>
-                        <input className="userField" type="text" value={ this.state.searchString } placeholder="search" onChange={ this.onSearchChange } autoFocus></input>
-                        <input className="loginBtn" type="submit" value="search" /> <br/>
+                        <input className="userField"
+                            type="text"
+                            value={ this.state.searchString }
+                            placeholder="search"
+                            onChange={ this.onSearchChange }>
+                        </input>
+                        <input className="loginBtn"
+                            type="submit"
+                            value="search" /> <br/>
                         <label> Hide watched:
-                            <input type="checkbox" value={ this.state.filterWatched ? true : false } onChange={ this.onFilterChange } />
-                        </label> <br/>
+                            <input type="checkbox"
+                                value={ this.state.filterWatched ? true : false }
+                                onChange={ this.onFilterChange } />
+                        </label>
+                        <br/>
                         <label htmlFor="year"> Show only movies released after: </label>
-                        <input className="yearField" type="number" id="year" name="year" onChange={this.onYearChange} value={this.state.year} min="1900" max={( new Date() ).getFullYear()} /> <br/>
+                        <input className="yearField"
+                            type="number"
+                            id="year"
+                            name="year"
+                            onChange={this.onYearChange}
+                            value={this.state.year}
+                            min="1900"
+                            max={( new Date() ).getFullYear()} />
+                        <br/>
                         <label>Sort by:
-                            <select className="yearField" style={{'backgroundColor':'#102027'}} defaultValue="rank" value={this.state.sortMethod} onChange={ this.onSortChange }>
+                            <select className="yearField"
+                                style={{'backgroundColor':'#102027'}}
+                                defaultValue="rank"
+                                value={this.state.sortMethod}
+                                onChange={ this.onSortChange }>
                                 {this.state.sortMethods
                                     .map( ( e, i ) => <option value={e}>{e}</option> ) }
                             </select>

@@ -45,16 +45,15 @@ export default function( state = initialState, action ) {
             'loaded': true,
         };
     case UPDATE_LIKED:
-        console.log( 'updateLiked', action.payload );
         return {
             ...state,
-            'item':{'data':{'films':action.payload.data.updateLiked}},
+            'item': { 'data': { 'films':action.payload.data.updateLiked } },
             'loaded': true,
         };
     case UPDATE_WATCHED:
         return {
             ...state,
-            'item':{'data':{'films':action.payload.data.updateWatched}},
+            'item': { 'data': { 'films':action.payload.data.updateWatched } },
             'loaded': true,
         };
     case LOADING:

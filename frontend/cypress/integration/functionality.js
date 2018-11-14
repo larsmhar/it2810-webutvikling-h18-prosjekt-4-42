@@ -17,7 +17,6 @@ describe('Test watched ', () => {
 			.click()
 		cy.wait(100)
 		// But I don't know how to get watched/liked style
-		console.log(cy.get('#watched').style)
 	})
 
 	it('Should search right', () => {

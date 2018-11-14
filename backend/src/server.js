@@ -109,7 +109,6 @@ const sortFilms = function ( a, b, compare, desc = true ) {
 };
 
 const addUser = function( args ) {
-    console.log( 'Adding user', args );
     return new Promise( ( resolve, reject ) => {
         db.run( 'INSERT INTO user (username) VALUES ($username)', args.username )
             .then(
@@ -126,7 +125,6 @@ const addUser = function( args ) {
 };
 
 const updateLiked = function( args ) {
-    console.log( args );
     return new Promise( ( resolve, reject ) => {
         db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
             .then( function( result ) {
@@ -171,7 +169,6 @@ const updateLiked = function( args ) {
 
 const updateWatched = function( args ) {
     const that = this;
-    console.log( args );
     return new Promise( ( resolve, reject ) => {
         db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
             .then( function( result ) {
@@ -215,22 +212,6 @@ const updateWatched = function( args ) {
 };
 
 const getFilms = function( args ) {
-    /*
-    console.log(args)
-    return new Promise( resolve => {
-        db.all( 'SELECT * FROM movie as a LEFT JOIN userActions ON (userActions.mid = a.id) where uid = $uid1 UNION SELECT  *, NULL, NULL, NULL, NULL FROM movie as b  where b.id not in (SELECT id FROM movie as c LEFT JOIN userActions ON (userActions.mid = c.id) where uid = $uid2)ORDER BY uid DESC ', args.uid, args.uid)
-        .then( result => {
-            console.log(result)
-            const newResult = {
-                'movies': result.slice( args.skip, args.skip + args.first ),
-                'total': result.length,
-                'offset': args.skip
-            };
-            resolve( newResult );
-        })
-    })
-    */
-
     // This line is very very long
     const searchString = args.filterWatched ? 'SELECT * FROM movie as a LEFT JOIN userActions ON (userActions.mid = a.id) where uid = '
     + args.uid + ' and watched = 0 UNION SELECT  *, NULL, NULL, NULL, NULL FROM movie as b  where b.id not in (SELECT id FROM movie as c LEFT JOIN userActions ON (userActions.mid = c.id) where uid = '
@@ -280,7 +261,6 @@ const getFilms = function( args ) {
 };
 
 const getUser = function( args ) {
-    console.log( 'Getting user', args );
     return new Promise( ( resolve, reject ) => {
         db.get( 'SELECT * FROM user WHERE username = $username', args.username ).then( function( result ) {
             if ( result ) {
@@ -305,7 +285,6 @@ const getWatched = function( args ) {
 };
 
 const getLiked = function( args ) {
-    console.log( args );
     return new Promise( ( resolve, reject ) => {
         db.all( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND liked = 1', args.uid ).then( function( result ) {
             if ( result ) {

@@ -2,12 +2,13 @@ import { LOADING, GET_USER, LOCAL_STORAGE_USER, LOG_OUT, ADD_USER } from './type
 import { IP } from './constants.js';
 
 export const getUser = ( username ) => dispatch => {
-    console.log( 'Gotting users' );
     dispatch( { 'type': LOADING} );
     fetch( IP, {
 	  'method': 'POST',
 	    'headers': { 'Content-Type': 'application/json' },
-		  'body': JSON.stringify( { 'query': '{ user (username: "' + username + '") { uid username } }' } ),
+        'body': JSON.stringify( { 'query': '{ user (username: "' + username + '")' +
+            '{ uid username } }'
+        } ),
 		  } )
         .then( res => res.json() )
         .then( user => dispatch( {
@@ -17,13 +18,13 @@ export const getUser = ( username ) => dispatch => {
 };
 
 export const addUser = ( username ) => dispatch => {
-    console.log( 'Gotting users' );
     dispatch( { 'type': LOADING} );
     fetch( IP, {
 	  'method': 'POST',
 	    'headers': { 'Content-Type': 'application/json' },
-		  'body': JSON.stringify( { 'query': 'mutation { addUser (username: "' + username + '") { uid username } }' } ),
-		  } )
+        'body': JSON.stringify( { 'query': 'mutation { addUser (username: "' + username + '")' +
+            '{ uid username } }' } ),
+		    } )
         .then( res => res.json() )
         .then( user => dispatch( {
             'type': ADD_USER,
@@ -32,7 +33,6 @@ export const addUser = ( username ) => dispatch => {
 };
 
 export const getLocalStorageUser = ( userData ) => dispatch => {
-    console.log( 'Getting local storage user', userData );
     dispatch( {
         'type': LOCAL_STORAGE_USER,
         'payload': userData,

@@ -119,6 +119,9 @@ The benefit of defining mutations, is that you always know when you will be maki
 ## Frontend
 
 ### React
+As mentioned previously, using React was a requirement for this project. React has been explained in detail in previous documentation, and if you're reading this you're probably familiar with it. Nonetheless, it is an extremely useful framework that makes it possible to write powerful single page applications and user interfaces using modular components that updates only when they need to.
+
+Some of the concepts integral to React, such as components, props and state are important to learn and use correctly, but when used well it is possible to create advanced user interfaces that are maintainable and modular.  
 
 ### Redux
 

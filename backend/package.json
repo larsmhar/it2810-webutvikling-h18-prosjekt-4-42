@@ -93,6 +93,7 @@
     "express-graphql": "^0.6.12",
     "graphql": "^14.0.2",
     "graphql-tester": "0.0.5",
+    "sqlite": "^3.0.0",
     "sqlite3": "^4.0.4"
   },
   "devDependencies": {

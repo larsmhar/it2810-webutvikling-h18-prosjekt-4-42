@@ -1,9 +1,10 @@
 import {schema, root, server, sortFilms} from '../src/server.js';
+const sqlite3 = require( 'sqlite3' ).verbose();
+
 const graphqlHTTP = require( 'express-graphql' );
 
-const middleware = graphqlHTTP({
-    schema,
-    root
+afterAll( done => {
+    server.close( done );
 } );
 
 describe( 'test sorting', ()=> {
@@ -18,9 +19,6 @@ describe( 'test sorting', ()=> {
         'rank':'5'
     };
 
-    afterAll( done => {
-        server.close( done );
-    } );
 
     test( 'Expect year to sort correctly', ()=> {
         expect( sortFilms( movieA, movieB, 'year' ) ).toBe( 1 );
@@ -40,25 +38,85 @@ describe( 'test sorting', ()=> {
         expect( sortFilms( movieA, movieA, 'rank' ) ).toBe( 0 );
         expect( sortFilms( movieA, movieA, 'rank', false ) ).toBe( 0 );
     } );
+} );
 
-    const request = {
-        'method': 'POST',
-        'headers': {},
-        'body': {'query':'query{ films (uid:1, first:3, skip:0) { movies { title released runtime } total offset}}'}
+describe( 'Test schema and queries', ()=> {
+    //useful tutorial https://itnext.io/graphql-jest-snapshot-testing-7f7345ee2be
+
+    //Have to mock the return value for now, have to find a way to start the database before running the tests
+    const mockFilm = {
+        'movies': [
+            {'title': 'To Kill a Mockingbird',
+                'released':'16 Mar 1943',
+                'runtime': '129 min',
+                'director': 'Robert Mulligan',
+                'imdbRating': '8.3'}
+        ],
+        'total': 1,
+        'offset': 0
     };
 
-    const response = {
-        'setHeader': jest.fn(),
-        'end': jest.fn(),
-        'json': jest.fn(),
-    };
-
-    test( 'Expect responseData', async () => {
-        //useful tutorial https://itnext.io/graphql-jest-snapshot-testing-7f7345ee2be
-        await middleware( request, response );
-        const responseData = response.json.mock.calls[0][0];
-        console.log( responseData );
-        expect( 1 ).toBe( 1 );
+    const middleware = graphqlHTTP( {
+        schema,
+        'rootValue': {
+            'films': () => mockFilm,
+        }
     } );
 
+    test( 'Expect list of movies as array', async () => {
+        const response = {
+            'setHeader': jest.fn(),
+            'end': jest.fn(),
+            'json': jest.fn(),
+        };
+
+        const request = {
+            'method': 'POST',
+            'headers': {},
+            'body': {'query':'query{ films (uid:1, first:3, skip:0) { movies { title released runtime } total offset}}'}
+        };
+
+        await middleware( request, response );
+        const responseData = response.json.mock.calls[0][0];
+        // console.log( responseData.data.films.movies );
+        expect( Array.isArray( responseData.data.films.movies ) ).toBe( true );
+    } );
+
+    test( 'Expect movie object to only contain fields in query', async () => {
+        const response = {
+            'setHeader': jest.fn(),
+            'end': jest.fn(),
+            'json': jest.fn(),
+        };
+
+        const request = {
+            'method': 'POST',
+            'headers': {},
+            'body': {'query':'query{ films (uid:1, first:3, skip:0) { movies { title released runtime } total offset}}'}
+        };
+
+        await middleware( request, response );
+        const responseData = response.json.mock.calls[0][0];
+        expect( Object.keys( responseData.data.films.movies[0] ) ).toEqual( ['title', 'released', 'runtime'] );
+    } );
+
+    test( 'Expect error on unvalid field', async () => {
+        const response = {
+            'setHeader': jest.fn(),
+            'end': jest.fn(),
+            'json': jest.fn(),
+        };
+
+        const request = {
+            'method': 'POST',
+            'headers': {},
+            'body': {'query':'query{ films (uid:1, first:3, skip:0) { movies { turtle released runtime } total offset}}'}
+        };
+        await middleware( request, response );
+        const responseData = response.json.mock.calls[0][0];
+        // console.log( responseData );
+        expect( Object.keys( responseData ) ).toEqual( ['errors'] );
+        expect( responseData.errors[0].message ).toMatch( 'Cannot query field' );
+        expect( 1 ).toBe( 1 );
+    } );
 } );

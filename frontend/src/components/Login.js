@@ -34,14 +34,23 @@ class Login extends Component {
     render() {
         let error;
         if ( 'errors' in this.props.user.user ) {
-            error = <div><Errors errors={this.props.user.user.errors} />
-                <input className="loginBtn" type="submit" value="Register user" onClick={ this.addUser.bind( this ) }/></div>;
+            error = <div>
+                <Errors errors={ this.props.user.user.errors } />
+                <input className="loginBtn"
+                    type="submit" value="Register user"
+                    onClick={ this.addUser.bind( this ) }/></div>;
         }
         return (
             <form className="loginForm" onSubmit={ this.onHandleSubmit }>
                 <i className="material-icons md-42 userIcon">person</i>
-                <input className="userField" type="text" value={ this.state.username } placeholder="username" onChange={ this.onUsernameChange } autoFocus></input>
-                <input className="loginBtn" type="submit" value="Log in"/>
+                <input className="userField"
+                    type="text" value={ this.state.username }
+                    placeholder="username"
+                    onChange={ this.onUsernameChange }
+                    autoFocus></input>
+                <input className="loginBtn"
+                    type="submit"
+                    value="Log in"/>
                 { error }
             </form>
         );

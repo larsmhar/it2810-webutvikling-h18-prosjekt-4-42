@@ -31,7 +31,6 @@ class App extends Component {
 
     render() {
         //localStorage.setItem("thing", "datum")
-        console.log( localStorage.getItem( 'thing' ) );
         return (
             <Router>
                 <div className="App">
@@ -48,7 +47,6 @@ class App extends Component {
                             <Login/>
                     } />
                     */}
-                    {console.log( this.props.user.user.data.user )}
                     {/*
                         <Route exact path='/' render={() => this.checkLogin( <Frontpage/>, 'films' ) } />
                         <Route path="/films" render={() => this.checkIfLogin( <Filmspage/> ) } />

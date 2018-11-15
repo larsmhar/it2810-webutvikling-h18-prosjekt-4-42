@@ -78,7 +78,6 @@ describe( 'Test schema and queries', ()=> {
 
         await middleware( request, response );
         const responseData = response.json.mock.calls[0][0];
-        // console.log( responseData.data.films.movies );
         expect( Array.isArray( responseData.data.films.movies ) ).toBe( true );
     } );
 
@@ -114,7 +113,6 @@ describe( 'Test schema and queries', ()=> {
         };
         await middleware( request, response );
         const responseData = response.json.mock.calls[0][0];
-        // console.log( responseData );
         expect( Object.keys( responseData ) ).toEqual( ['errors'] );
         expect( responseData.errors[0].message ).toMatch( 'Cannot query field' );
     } );
@@ -133,7 +131,6 @@ describe( 'Test schema and queries', ()=> {
         };
         await middleware( request, response );
         const responseData = response.json.mock.calls[0][0];
-        // console.log( responseData );
         expect( Object.keys( responseData ) ).toEqual( ['errors'] );
         expect( responseData.errors[0].message ).toMatch( 'argument "uid" of type "Int!" is required' );
     } );
@@ -152,7 +149,6 @@ describe( 'Test schema and queries', ()=> {
         };
         await middleware( request, response );
         const responseData = response.json.mock.calls[0][0];
-        // console.log( responseData );
         expect( Object.keys( responseData ) ).toEqual( ['errors'] );
         expect( responseData.errors[0].message ).toMatch( 'argument "first" of type "Int!" is required' );
     } );
@@ -171,7 +167,6 @@ describe( 'Test schema and queries', ()=> {
         };
         await middleware( request, response );
         const responseData = response.json.mock.calls[0][0];
-        // console.log( responseData );
         expect( Object.keys( responseData ) ).toEqual( ['errors'] );
         expect( responseData.errors[0].message ).toMatch( 'Expected type String' );
     } );

@@ -172,4 +172,8 @@ A summary of our end-to-end tests can be seen below:
 
 ![Test login](readme_img/test_login.PNG)
 
+![Test movie page](readme_img/test_movie_page.PNG)
+
+![Test search](readme_img/test_search.PNG)
+
 While we have not implemented testing for every part, we are testing pertinent parts of the program in an effort to show an understanding of a methodological approach to unit end end-to-end testing within the scope of this project and the time constraints.

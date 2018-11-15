@@ -1,6 +1,7 @@
 import { FETCH_FILMS, FETCH_FILM, SEARCH_FILM, LOADING, UPDATE_LIKED, UPDATE_WATCHED, FILTER_WATCHED, FILTER_YEAR, SORT_CHANGED } from './types';
 import { IP } from './constants.js';
 
+// Fetches the films for Filmspage
 export const fetchFilms = ( uid, skip, first, title = '', year = '', sortMethod = 'rank', filterWatched = 0 ) => dispatch => {
     dispatch( { 'type': LOADING} );
     fetch( IP, {
@@ -21,6 +22,7 @@ export const fetchFilms = ( uid, skip, first, title = '', year = '', sortMethod 
         );
 };
 
+// Updates all of the filter/sort/search fields in the store
 export const searchFilterChanged = ( sortMethod, searchString, filterWatched, year ) => dispatch => {
     dispatch( {
         'type': SEARCH_FILM,
@@ -34,6 +36,7 @@ export const searchFilterChanged = ( sortMethod, searchString, filterWatched, ye
     } );
 };
 
+// Updates searchTitle in the store
 export const searchTitle = ( searchString ) => dispatch => {
     dispatch( {
         'type': SEARCH_FILM,
@@ -41,6 +44,7 @@ export const searchTitle = ( searchString ) => dispatch => {
     } );
 };
 
+// Updates filterWatched in the store
 export const filterWatched = ( filterWatched ) => dispatch => {
     dispatch( {
         'type': FILTER_WATCHED,
@@ -48,6 +52,7 @@ export const filterWatched = ( filterWatched ) => dispatch => {
     } );
 };
 
+// Updates filterYear in the store
 export const filterYear = ( year ) => dispatch => {
     dispatch( {
         'type': FILTER_YEAR,
@@ -55,6 +60,7 @@ export const filterYear = ( year ) => dispatch => {
     } );
 };
 
+// Updates sortChanged in the store
 export const sortChanged = ( sortMethod ) => dispatch => {
     dispatch( {
         'type': SORT_CHANGED,
@@ -62,6 +68,7 @@ export const sortChanged = ( sortMethod ) => dispatch => {
     } );
 };
 
+// Fetches a specific film for the Film page
 export const fetchFilm = ( mid, uid, first, skip ) => dispatch => {
     dispatch( { 'type': LOADING} );
     fetch( IP, {
@@ -77,6 +84,7 @@ export const fetchFilm = ( mid, uid, first, skip ) => dispatch => {
         } ) );
 };
 
+// Updates a movies liked status
 export const updateLiked = ( mid, uid ) => dispatch => {
     fetch( IP, {
 	  'method': 'POST',
@@ -91,6 +99,7 @@ export const updateLiked = ( mid, uid ) => dispatch => {
         } ) );
 };
 
+// Updates a movies watched status
 export const updateWatched = ( mid, uid ) => dispatch => {
     fetch( IP, {
 	  'method': 'POST',
@@ -104,7 +113,3 @@ export const updateWatched = ( mid, uid ) => dispatch => {
             'payload': film
         } ) );
 };
-
-function makeQuery() {
-    return undefined;
-}

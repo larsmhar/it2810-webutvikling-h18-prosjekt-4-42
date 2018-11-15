@@ -6,6 +6,7 @@ class Error extends Component {
         return (
             <div>
                 <p>¤=¤ ERROR</p>
+                <p>THere is nothing noteworthy here</p>
             </div>
         );
     }

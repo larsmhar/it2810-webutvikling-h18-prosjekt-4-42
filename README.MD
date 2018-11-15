@@ -6,7 +6,9 @@ The repository includes 2 folders, one for the frontend part of the project and 
 
 It is also necessary to run _npm run install_ in the backend-folder, which can then be started using _npm start_.
 
-The _src/actions/constants.js_ includes includes a line that can be commented in/out to switch between using the backend on localhost or the one on the virtual machine
+The _src/actions/constants.js_ includes a line that can be commented in/out to switch between using the backend on localhost or the one on the virtual machine
+
+When running locally, the application must be accessed from localhost:3000/prosjekt4 due to the way the routing works on the virtual machine.
 
 # Site functionality and features
 The website created for this project is a database that allows user to mark movies as watched and/or liked, as well as different methods of searching and filtering the dataset.
@@ -124,8 +126,14 @@ As mentioned previously, using React was a requirement for this project. React h
 Some of the concepts integral to React, such as components, props and state are important to learn and use correctly, but when used well it is possible to create advanced user interfaces that are maintainable and modular.  
 
 ### Redux
+The use of Redux as the state management framework, made development very convenient as the application grew more complex. Handling API requests and pagination information through the use of Redux actions and reducers greatly increased maintainability and speed of development as we now had a good way of knowing exactly when and how the state was being changed. The use of the store as the so-called "single source of truth" also made sure all the components that needed the different information had one place to get it from, and it provided persistence in the form of pagination and search results when navigating through the application.
 
 ### react-router
+
+React router was useful in allowing us to set up all the routes used in the application as well as redirects to the login page if the user is not loged in.
+Currently, the routes used are _prosjekt4/_ which is the log-in page. If a user is logged in, they will be redirected to _prosjekt4/films_, which is the main page of the application. When a user clicks on a movie, they will be routed to _prosjekt4/films/:id_, where id is in the form of _tt4154756_.
+
+Currently, there is a minor known issue with the routing on the virtual machine. Where if a user tries to enter a movie page directly, they will be redirected to _prosjekt4/films_, although this does not negatively impact the use of the application, it does work when running the application locally, so we suspect it might be an issue with the configuration of the apache server.   
 
 # Work Methodology
 As before, our work methodology was influenced by the fact that we worked in a group of two. Most of the coding was done in either in the form of pair programming or while working together. This was an effective way for us to work, and we had a steady progress throughout the whole project. When not working together, we made use of frequent online communication and updates as well as appropriate use of the collaborative features of our version control system.

@@ -23,3 +23,7 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add( 'login', () => {
+    window.localStorage.setItem( 'user', '{"data":{"user":{"uid":1,"username":"sudo"}}}' );
+} );

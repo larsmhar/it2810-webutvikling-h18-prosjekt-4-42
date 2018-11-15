@@ -23,7 +23,7 @@ db.run = promisify( db.run );
 // These are deprecated and not used anymore
 // userWatched(uid:Int!): [Movie]
 // userLiked(uid:Int!): [Movie]
-const schema = buildSchema( `
+export const schema = buildSchema( `
   type Query {
     films(mid:String, uid:Int!, year:String, title:String, first:Int!, skip:Int!, filterWatched:Int, sort:String, desc:Int): Movies
     searchFilms(title:String, year: String, first:Int!, skip:Int!): [Movie]
@@ -67,7 +67,7 @@ type Movies {
 }
 ` );
 
-const sortFilms = function ( a, b, compare, desc = true ) {
+export const sortFilms = function ( a, b, compare, desc = true ) {
     switch ( compare ) {
     case 'year': {
         const yearA = isNaN( a.released[0] ) ? a.year : a.released;
@@ -339,7 +339,7 @@ const searchFilms = function( args ) {
 };
 
 // The root provides a resolver function for each API endpoint
-const root = {
+export const root = {
     'films': getFilms,
     'searchFilms': searchFilms,
     'user': getUser,
@@ -359,5 +359,5 @@ app.use( '/graphql', cors(),
         'graphiql': true,
     } )
 );
-app.listen( 4000 );
+export const server = app.listen( 4000 );
 console.log( 'Running a GraphQL API server at localhost:4000/graphql' );

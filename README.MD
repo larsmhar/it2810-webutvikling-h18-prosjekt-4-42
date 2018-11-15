@@ -128,5 +128,48 @@ Some of the concepts integral to React, such as components, props and state are 
 ### react-router
 
 # Work Methodology
+As before, our work methodology was influenced by the fact that we worked in a group of two. Most of the coding was done in either in the form of pair programming or while working together. This was an effective way for us to work, and we had a steady progress throughout the whole project. When not working together, we made use of frequent online communication and updates as well as appropriate use of the collaborative features of our version control system.
+
+In this assignment we used Gitlab instead of GitHub, but Gitlab proved to be a good replacement. Most of the features we had gotten used to from GitHub were there in Gitlab, and we made frequent use of merge requests, issues etc. This allowed us to always have a good overview of what was being worked on and what we still had to implement, while also giving us a good way of keeping track of our progress.
+
+Since we worked on both a backend part and a frontend part, the use of labels proved useful in identifying what issues and commits were relevant to the different parts of the project.
 
 # Testing
+In our effort of testing the final product we made use of both unit testing and end-to-end testing of different parts of the finished project.
+In the backend part, unit testing was the main focus. The unit tests were implemented using the Jest JavaScript framework.
+
+Here we tested different parts of the schemas and queries we had implemented, as well as mutations. To see that everything was being handled correctly by the GraphQl api. A summary of our backend tests can be seen below.
+~~~
+PASS  __tests__/getFilms.test.js
+ test sorting
+   √ Expect year to sort correctly (8ms)
+   √ Expect runtime to sort correctly (2ms)
+   √ Expect rank to sort correctly (2ms)
+ Test schema and queries
+   √ Expect list of movies as array (20ms)
+   √ Expect movie object to only contain fields in query (4ms)
+   √ Expect error on unvalid field (4ms)
+   √ Expect error if query does not contain uid (2ms)
+   √ Expect error if query does not contain pagination argument (2ms)
+   √ Expect error if title argument is not string (3ms)
+
+PASS  __tests__/user.test.js
+ A user
+   √ Is able to add a new user to the database (1023ms)
+   √ Can fetch ("login") username and uid from the database (1005ms)
+
+   Test Suites: 2 passed, 2 total
+    Tests:       11 passed, 11 total
+    Snapshots:   0 total
+    Time:        7.866s
+    Ran all test suites.
+~~~
+
+With the front-end part, we focused on implementing end-to-end testing with the Cypress JavaScript Framework. This allowed us to see that different parts of our user interface was working correctly, and that a user could navigate through the application in a correct manner.
+
+This also allowed us to test that everything was being rendered in a correct manner and that the correct information was returned based on the users input. As a consequence, the end-to-end testing also worked as a good complement to the unit testing implemented in the backend.
+A summary of our end-to-end tests can be seen below:
+
+![Test login](readme_img/test_login.PNG)
+
+While we have not implemented testing for every part, we are testing pertinent parts of the program in an effort to show an understanding of a methodological approach to unit end end-to-end testing within the scope of this project and the time constraints.

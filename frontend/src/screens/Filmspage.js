@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Items from '../components/Items';
 import PageButtons from '../components/PageButtons';
 import { searchTitle, fetchFilms, filterWatched, filterYear, sortChanged, searchFilterChanged } from '../actions/filmActions';
-import { timingSafeEqual } from 'crypto';
+import { resetPagination } from '../actions/pageinationActions';
 import './Filmspage.css';
 
 class Filmspage extends Component {
@@ -29,6 +29,7 @@ class Filmspage extends Component {
 
     onHandleSubmit( e ) {
         e.preventDefault();
+        this.props.resetPagination();
         this.props.sortChanged( this.state.sortMethod );
         this.props.searchTitle( this.state.searchString );
         this.props.filterWatched( this.state.filterWatched );
@@ -128,4 +129,4 @@ const mapStateToProps = state => ( {
     'year': state.films.year,
 } );
 
-export default connect( mapStateToProps, { searchTitle, filterYear, filterWatched, sortChanged, fetchFilms, searchFilterChanged } )( Filmspage );
+export default connect( mapStateToProps, { resetPagination, searchTitle, filterYear, filterWatched, sortChanged, fetchFilms, searchFilterChanged } )( Filmspage );

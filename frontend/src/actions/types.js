@@ -21,3 +21,4 @@ export const UPDATE_LIKED = 'UPDATE_LIKED';
 export const UPDATE_WATCHED = 'UPDATE_WATCHED';
 // Local storage
 export const LOCAL_STORAGE_USER = 'LOCAL_STORAGE_USER';
+export const RESET_PAGINATION = 'RESET_PAGINATION';

@@ -129,12 +129,15 @@ const addUser = function( args ) {
 // Inverts the value of liked on a movie or adds liked to it
 const updateLiked = function( args ) {
     return new Promise( ( resolve, reject ) => {
-        db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
+        db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid' +
+            'AND userActions.mid = $mid', args.uid, args.mid )
             .then( function( result ) {
                 if ( result ) {
-                    db.run( 'UPDATE userActions SET liked = (liked | 1) - (liked & 1) WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
+                    db.run( 'UPDATE userActions SET liked = (liked | 1) - (liked & 1) WHERE userActions.uid = $uid AND' +
+                        'userActions.mid = $mid', args.uid, args.mid )
                         .then( function ( result ) {
-                            db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
+                            db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE' +
+                                'userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                                 .then( function( result ) {
                                     if ( result ) {
                                         const newResult = {
@@ -151,7 +154,8 @@ const updateLiked = function( args ) {
                 } else {
                     db.run( 'INSERT INTO userActions (mid, uid, liked, watched) VALUES ($mid, $uid, 1, 0)', args.mid, args.uid )
                         .then( function ( result ) {
-                            db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
+                            db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE' +
+                                'userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                                 .then( function( result ) {
                                     if ( result ) {
                                         const newResult = {
@@ -174,12 +178,15 @@ const updateLiked = function( args ) {
 const updateWatched = function( args ) {
     const that = this;
     return new Promise( ( resolve, reject ) => {
-        db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
+        db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid' +
+            'AND userActions.mid = $mid', args.uid, args.mid )
             .then( function( result ) {
                 if ( result ) {
-                    db.run( 'UPDATE userActions SET watched = (watched| 1) - (watched & 1) WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
+                    db.run( 'UPDATE userActions SET watched = (watched| 1) - (watched & 1) WHERE userActions.uid = $uid AND' +
+                        'userActions.mid = $mid', args.uid, args.mid )
                         .then( function ( result ) {
-                            db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
+                            db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE' +
+                                'userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                                 .then( function( result ) {
                                     if ( result ) {
                                         const newResult = {
@@ -196,7 +203,8 @@ const updateWatched = function( args ) {
                 } else {
                     db.run( 'INSERT INTO userActions (mid, uid, watched, liked) VALUES ($mid, $uid, 1, 0)', args.mid, args.uid )
                         .then( function ( result ) {
-                            db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
+                            db.get( 'SELECT * FROM movie INNER JOIN userActions on movie.id = userActions.mid WHERE' +
+                                'userActions.uid = $uid AND userActions.mid = $mid', args.uid, args.mid )
                                 .then( function( result ) {
                                     if ( result ) {
                                         const newResult = {
@@ -219,10 +227,12 @@ const updateWatched = function( args ) {
 const getFilms = function( args ) {
     // This line is very very long
     const searchString = args.filterWatched ? 'SELECT * FROM movie as a LEFT JOIN userActions ON (userActions.mid = a.id) where uid = '
-    + args.uid + ' and watched = 0 UNION SELECT  *, NULL, NULL, NULL, NULL FROM movie as b  where b.id not in (SELECT id FROM movie as c LEFT JOIN userActions ON (userActions.mid = c.id) where uid = '
+    + args.uid + ' and watched = 0 UNION SELECT  *, NULL, NULL, NULL, NULL FROM movie as b  where b.id not in' 
+    + '(SELECT id FROM movie as c LEFT JOIN userActions ON (userActions.mid = c.id) where uid = '
     + args.uid + ')'
         : 'SELECT * FROM movie as a LEFT JOIN userActions ON (userActions.mid = a.id) where uid = ' + args.uid
-            + ' UNION SELECT  *, NULL, NULL, NULL, NULL FROM movie as b  where b.id not in (SELECT id FROM movie as c LEFT JOIN userActions ON (userActions.mid = c.id) where uid = '
+            + ' UNION SELECT  *, NULL, NULL, NULL, NULL FROM movie as b  where b.id not in'
+            + '(SELECT id FROM movie as c LEFT JOIN userActions ON (userActions.mid = c.id) where uid = '
             + args.uid + ')ORDER BY uid DESC ';
     if ( args.mid && args.uid ) {
         return new Promise( ( resolve, reject ) => {

@@ -9,6 +9,7 @@
     "build": "babel --presets @babel/env src -d build",
     "start": "npm run build && node build/server.js",
     "fix": "eslint --fix src/*",
+    "fix:tests": "eslint --fix __tests__/*",
     "db:seed": "cp ../database.db ../database2.db && python3 ../db.reset.py",
     "db:runtest": "echo test and stuff",
     "db:revert": "rm ../database.db && mv ../database2.db ../database.db",

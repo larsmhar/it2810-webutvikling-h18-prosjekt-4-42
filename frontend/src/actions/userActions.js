@@ -1,6 +1,7 @@
 import { LOADING, GET_USER, LOCAL_STORAGE_USER, LOG_OUT, ADD_USER } from './types';
 import { IP } from './constants.js';
 
+// Gets a user and "logs in"
 export const getUser = ( username ) => dispatch => {
     dispatch( { 'type': LOADING} );
     fetch( IP, {
@@ -17,6 +18,7 @@ export const getUser = ( username ) => dispatch => {
         } ) );
 };
 
+// Creates a new user
 export const addUser = ( username ) => dispatch => {
     dispatch( { 'type': LOADING} );
     fetch( IP, {
@@ -32,6 +34,7 @@ export const addUser = ( username ) => dispatch => {
         } ) );
 };
 
+// Checks if you're already logged in
 export const getLocalStorageUser = ( userData ) => dispatch => {
     dispatch( {
         'type': LOCAL_STORAGE_USER,

@@ -27,10 +27,11 @@ class PageButtons extends Component {
     render() {
         const page = this.props.pageination.pageination;
         const total = this.props.total;
-        const btnBck = page > 0 ? <i id="btnBck"
-            className="material-icons"
-            onClick={this.buttonHandler}
-            style={{'cursor':'pointer'}}>arrow_back_ios</i> :
+        const btnBck = page > 0 ?
+            <i id="btnBck"
+                className="material-icons"
+                onClick={this.buttonHandler}
+                style={{'cursor':'pointer'}}>arrow_back_ios</i> :
             <i id="btnBck"
                 className="material-icons"
                 style={{'filter':'opacity(0)'}}>first_page</i>;

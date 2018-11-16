@@ -29,6 +29,8 @@ class Filmspage extends Component {
 
     onHandleSubmit( e ) {
         e.preventDefault();
+        // This beast of a function updates all of the parts of the store which is used for fetching
+        // and then fetched all of the films matching the params
         this.props.resetPagination();
         this.props.sortChanged( this.state.sortMethod );
         this.props.searchTitle( this.state.searchString );

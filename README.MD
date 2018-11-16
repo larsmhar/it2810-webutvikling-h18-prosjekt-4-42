@@ -188,4 +188,6 @@ A summary of our end-to-end tests can be seen below:
 
 ![Test search](readme_img/test_search.PNG)
 
+We did not use unit tests for the frontend itself as our frontend's internal structure is so simple and controlled by redux that the end-to-end testing should find most of the potential bugs which would pop up. We would have added unit tests given a larger application with more complex logic and a larger timeframe.
+
 While we have not implemented testing for every part, we are testing pertinent parts of the program in an effort to show an understanding of a methodological approach to unit end end-to-end testing within the scope of this project and the time constraints.

@@ -4,7 +4,6 @@ const { buildSchema } = require( 'graphql' );
 const sqlite3 = require( 'sqlite3' ).verbose();
 import {promisify} from 'bluebird';
 import cors from 'cors';
-import { triggerAsyncId } from 'async_hooks';
 //https://graphql.org/graphql-js/running-an-express-graphql-server/
 //https://medium.com/codingthesmartway-com-blog/creating-a-graphql-server-with-node-js-and-express-f6dddc5320e1
 
@@ -35,34 +34,54 @@ type Mutation {
     addUser(username:String!): User
 },
 type Movie {
+    "The imdb id of the movie"
     id: String
+    "The title of the movie"
     title: String
-    " The date at which the movie was released"
+    "The date at which the movie was released"
     released: String
+    "The genre of the movie"
     genre: String
+    "The director of the movie"
     director: String
+    "The plot summary of the movie"
     plot: String
+    "The writers behind the movie"
     writer: String
+    "The movies total runtime"
     runtime: String
+    "The year the movie was released"
     year: String
+    "The awards the movie has won"
     awards: String
+    "The link to the poster of the movie"
     poster: String
+    "The imdb rating of the movie"
     imdbRating: String
+    "The production company behind the movie"
     production: String
+    "The main actors in the movie"
     actors: String
+    "If the user has watched the movie"
     watched: Int
+    "If the user has liked the movie"
     liked: Int
+    "The imdb rank in the 250 of the movie"
     rank: String
 }
 
 type User {
+    "The unique id of the user"
     uid: Int
+    "The username of the user"
     username: String
 }
 
 type Movies {
     movies: [Movie]
+    "The total number of movies in the response"
     total:Int
+    "The offset in the response"
     offset:Int
 }
 ` );

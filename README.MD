@@ -116,7 +116,7 @@ Which would return a response containing the following information
 ~~~
 As is demonstrated, the fields are pick-and-choose, meaning you could include _director_ or _plot_ as well, or any of the fields defined in the schema. We also have _mutations_ allowing changes to the database, such as updating liked/watched status or adding users.
 
-The benefit of defining mutations, is that you always know when you will be making changes to the database as opposed yo just reading, as you specifically need to define the request as a mutation instead of just a query.
+The benefit of defining mutations, is that you always know when you will be making changes to the database as opposed to just reading, as you specifically need to define the request as a mutation instead of just a query.
 
 ## Frontend
 

@@ -108,8 +108,8 @@ Which would return a response containing the following information
           "runtime": "202 min"
         }
       ],
-      "total": 250,
-      "offset": 0
+    "total": 250,
+    "offset": 0
     }
   }
 }
@@ -117,6 +117,10 @@ Which would return a response containing the following information
 As is demonstrated, the fields are pick-and-choose, meaning you could include _director_ or _plot_ as well, or any of the fields defined in the schema. We also have _mutations_ allowing changes to the database, such as updating liked/watched status or adding users.
 
 The benefit of defining mutations, is that you always know when you will be making changes to the database as opposed to just reading, as you specifically need to define the request as a mutation instead of just a query.
+
+This allows us, as seen above, to slice and dice the data recieved from the backend to allow for pagination and therefore allows you to recieve as much information as deemed necessary. We have also implemented searching and filtering in the backend which allows you to further modify the data recieved to suit your needs. 
+
+
 
 ## Frontend
 

@@ -46,6 +46,7 @@ describe( 'Test search and filter functions', () => {
         cy.get('select').select('runtime')
         cy.get('form > .loginBtn')
             .click()
+        cy.wait(500)
         cy.get('.App-container')
             .find('.Item-container').then(($films) => {
                 expect($films[0].id).to.equal('tt1954470')

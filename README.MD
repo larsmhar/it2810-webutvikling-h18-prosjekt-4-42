@@ -1,5 +1,9 @@
 # Project 4 documentation
 
+# PSA
+This has been manually imported from gitlab and therefore doesn't include pull requests and some other things which might be a bit off compared to how it looked when we worked on it.
+
+
 The movie data in our database is gathered from [The Open Movie Database API](http://www.omdbapi.com/) [(CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/)  
 # Setup
 The repository includes 2 folders, one for the frontend part of the project and one for the backend part, each with their own package.json. The frontend part is a normal create-react-app project, using the normal commands for running and building the application (i.e. just use _npm start_ or _npm run build_ after running _npm install_).
